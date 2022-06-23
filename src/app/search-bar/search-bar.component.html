@@ -1,1 +1,8 @@
-<p>search-bar works!</p>
+<div class="container position-relative py-4 d-flex align-items-stretch">
+  <div class="position-relative w-25 d-inline-block">
+    <fa-icon class="search-icon" [icon]="glass"></fa-icon>
+    <input class="form-control form-control-lg ps-4" id="formControl" type="text" [(ngModel)]="searchText"
+           placeholder="Text to search">
+  </div>
+  <button (click)="onSearchClick()" class="btn btn-success ms-2">Search</button>
+</div>

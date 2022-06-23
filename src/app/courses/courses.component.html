@@ -1,1 +1,7 @@
-<p>courses works!</p>
+<div class="container">
+  <div class="d-flex justify-content-end add-btn-block mb-3">
+    <button class="btn btn-info"><fa-icon class="me-2" [icon]="plus"></fa-icon>Add course</button>
+  </div>
+  <app-course-item (deleteCourse)="deleteCourse($event)" *ngFor="let course of courses; trackBy: trackByID" [course]="course"></app-course-item>
+  <a (click)="loadMoreHandler()" href="#" class="link-info card p-3 text-center">Load more</a>
+</div>

@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header class="py-3">
+  <div class="container d-flex justify-content-between">
+    <app-logo></app-logo>
+    <div class="d-flex align-items-center">
+      <fa-icon class="me-2 ms-3" [icon]="faUser"></fa-icon>
+      <span>User login</span>
+
+      <a href="#" class="link-light">
+        <fa-icon class="me-2 ms-3" [icon]="logOff"></fa-icon>
+        <span>Log off</span>
+      </a>
+    </div>
+  </div>
+</header>

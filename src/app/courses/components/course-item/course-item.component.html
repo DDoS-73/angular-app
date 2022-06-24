@@ -1,4 +1,4 @@
-<div class="card mb-3">
+<div [appChangeBorder]="course.creationDate" class="card mb-3">
   <div class="card-body d-flex">
     <div class="content w-75">
       <div class="d-flex justify-content-between">
@@ -8,7 +8,7 @@
             <fa-icon [icon]="clock"></fa-icon>
             {{course.duration}}
           </div>
-          <div class="info_item">
+          <div id="date" class="info_item">
             <fa-icon [icon]="calendar"></fa-icon> {{course.creationDate}}
           </div>
         </div>

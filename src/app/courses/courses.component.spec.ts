@@ -38,7 +38,7 @@ describe('CoursesComponent', () => {
     expect(console.log).toHaveBeenCalled();
   });
 
-  it('should call console.log() call deleteCourse()', () => {
+  it('should call console.log() after call deleteCourse()', () => {
     console.log = jasmine.createSpy('log');
     component.deleteCourse('testID');
     expect(console.log).toHaveBeenCalledWith('testID');

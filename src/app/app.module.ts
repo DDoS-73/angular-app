@@ -12,6 +12,7 @@ import { CoursesComponent } from './courses/courses.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CourseItemComponent } from './courses/components/course-item/course-item.component';
+import { ChangeBorderDirective } from './change-border.directive';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { CourseItemComponent } from './courses/components/course-item/course-ite
     BreadcrumbsComponent,
     SearchBarComponent,
     CourseItemComponent,
+    ChangeBorderDirective,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [],

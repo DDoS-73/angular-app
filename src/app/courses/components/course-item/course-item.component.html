@@ -3,7 +3,7 @@
     <div class="content w-75">
       <div class="d-flex justify-content-between mb-3">
         <div class="title d-flex align-items-center">
-          <h3 class="card-title mb-0">{{course.title}}</h3>
+          <h3 class="card-title mb-0">{{course.title | uppercase}}</h3>
           <fa-icon *ngIf="course.topRated" class="star" [icon]="star"></fa-icon>
         </div>
         <div class="info">

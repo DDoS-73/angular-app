@@ -8,6 +8,7 @@ export const mockedCoursesList: Course[] = [
 specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.`,
     creationDate: new Date(),
     duration: 160,
+    topRated: true,
   },
   {
     id: 'b5630fdd-7bf7-4d39-b75a-2b5906fd0916',
@@ -17,5 +18,6 @@ specimen book. It has survived not only five centuries, but also the leap into e
  printer took a galley of type and scrambled it to make a type specimen book.`,
     creationDate: new Date(),
     duration: 210,
+    topRated: false,
   },
 ];

@@ -1,8 +1,11 @@
-<div [appChangeBorder]="course.creationDate" class="card mb-3">
+<div [appChangeBorder]="course.creationDate" class="card mb-3" [ngClass] = "course.topRated ? 'topRatedBg' : ''">
   <div class="card-body d-flex">
     <div class="content w-75">
-      <div class="d-flex justify-content-between">
-        <h2 class="card-title">{{course.title}}</h2>
+      <div class="d-flex justify-content-between mb-3">
+        <div class="title d-flex align-items-center">
+          <h3 class="card-title mb-0">{{course.title}}</h3>
+          <fa-icon *ngIf="course.topRated" class="star" [icon]="star"></fa-icon>
+        </div>
         <div class="info">
           <div class="info_item">
             <fa-icon [icon]="clock"></fa-icon>

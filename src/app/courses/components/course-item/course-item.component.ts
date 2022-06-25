@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../../../Course';
 
 @Component({
@@ -13,6 +13,7 @@ export class CourseItemComponent implements OnInit {
   calendar = faCalendar;
   pencil = faPencil;
   trash = faTrash;
+  star = faStar;
 
   @Input() course!: Course;
 

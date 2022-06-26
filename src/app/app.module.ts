@@ -13,8 +13,9 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CourseItemComponent } from './courses/components/course-item/course-item.component';
 import { ChangeBorderDirective } from './Directives/change-border.directive';
-import { DurationPipe } from './Pipes/duration.pipe';
-import { OrderByPipe } from './Pipes/order-by.pipe';
+import { DurationPipe } from './Pipes/duration/duration.pipe';
+import { OrderByPipe } from './Pipes/orderBy/order-by.pipe';
+import { FilterPipe } from './Pipes/filter/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { OrderByPipe } from './Pipes/order-by.pipe';
     ChangeBorderDirective,
     DurationPipe,
     OrderByPipe,
+    FilterPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [],

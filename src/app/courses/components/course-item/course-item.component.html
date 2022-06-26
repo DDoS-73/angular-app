@@ -9,7 +9,7 @@
         <div class="info">
           <div class="info_item">
             <fa-icon [icon]="clock"></fa-icon>
-            {{course.duration}}
+            {{course.duration | duration}}
           </div>
           <div id="date" class="info_item">
             <fa-icon [icon]="calendar"></fa-icon> {{course.creationDate}}

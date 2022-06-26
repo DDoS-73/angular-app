@@ -13,6 +13,7 @@ import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CourseItemComponent } from './courses/components/course-item/course-item.component';
 import { ChangeBorderDirective } from './change-border.directive';
+import { DurationPipe } from './duration.pipe';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ChangeBorderDirective } from './change-border.directive';
     SearchBarComponent,
     CourseItemComponent,
     ChangeBorderDirective,
+    DurationPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [],

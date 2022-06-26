@@ -8,15 +8,14 @@ export class ChangeBorderDirective implements OnInit {
 
   @Input('appChangeBorder') creationDate!: Date;
 
-  now = Date.now();
-
   ngOnInit() {
+    const now = Date.now();
     if (
-      this.creationDate.getTime() < this.now &&
-      this.creationDate.getTime() >= this.now - 14 * 24 * 60 * 60 * 60 * 1000
+      this.creationDate.getTime() < now &&
+      this.creationDate.getTime() >= now - 14 * 24 * 60 * 60 * 1000
     ) {
       this.el.nativeElement.classList.value += ' border border-success';
-    } else if (this.creationDate.getTime() > this.now) {
+    } else if (this.creationDate.getTime() > now) {
       this.el.nativeElement.classList.value += ' border border-info';
     }
   }

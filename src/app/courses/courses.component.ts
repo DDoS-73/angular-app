@@ -1,9 +1,9 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
 
 import { Course } from '../Course';
-import { mockedCoursesList } from '../constants';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FilterPipe } from '../Pipes/filter/filter.pipe';
+import { CourseService } from '../Services/course.service';
 
 @Component({
   selector: 'app-courses',
@@ -12,18 +12,20 @@ import { FilterPipe } from '../Pipes/filter/filter.pipe';
 })
 export class CoursesComponent implements OnInit, OnChanges {
   courses: Course[] = [];
-
+  filteredCourses: Course[] = [];
   plus = faPlus;
+
+  constructor(private courseService: CourseService) {}
 
   @Input() searchText!: string;
 
   ngOnInit(): void {
-    this.courses = mockedCoursesList;
+    this.courses = this.filteredCourses = this.courseService.getList();
   }
 
   ngOnChanges() {
-    this.courses = new FilterPipe().transform(
-      mockedCoursesList,
+    this.filteredCourses = new FilterPipe().transform(
+      this.courses,
       this.searchText
     );
   }

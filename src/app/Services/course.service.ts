@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+
 import { mockedCoursesList } from '../constants';
 import { Course } from '../Course';
 
@@ -15,5 +16,9 @@ export class CourseService {
   createCourse() {}
   getItemByID() {}
   updateItem() {}
-  removeItem() {}
+
+  removeItem(id: string): Course[] {
+    this.courses = this.courses.filter((course) => course.id !== id);
+    return this.courses;
+  }
 }

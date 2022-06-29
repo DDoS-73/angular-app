@@ -1,9 +1,11 @@
 import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 import { Course } from '../Course';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FilterPipe } from '../Pipes/filter/filter.pipe';
 import { CourseService } from '../Services/course.service';
+import { ModalComponent } from '../modal/modal.component';
 
 @Component({
   selector: 'app-courses',
@@ -11,11 +13,15 @@ import { CourseService } from '../Services/course.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements OnInit, OnChanges {
+  modalRef: MdbModalRef<ModalComponent> | null = null;
   courses: Course[] = [];
   filteredCourses: Course[] = [];
   plus = faPlus;
 
-  constructor(private courseService: CourseService) {}
+  constructor(
+    private courseService: CourseService,
+    private modalService: MdbModalService
+  ) {}
 
   @Input() searchText!: string;
 
@@ -35,7 +41,14 @@ export class CoursesComponent implements OnInit, OnChanges {
   }
 
   deleteCourse(id: string) {
-    console.log(id);
+    this.modalRef = this.modalService.open(ModalComponent, {
+      modalClass: 'modal-dialog-centered',
+    });
+    this.modalRef.onClose.subscribe((result: boolean) => {
+      if (result) {
+        this.courses = this.filteredCourses = this.courseService.removeItem(id);
+      }
+    });
   }
 
   loadMoreHandler() {

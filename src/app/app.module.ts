@@ -16,6 +16,8 @@ import { ChangeBorderDirective } from './Directives/change-border.directive';
 import { DurationPipe } from './Pipes/duration/duration.pipe';
 import { OrderByPipe } from './Pipes/orderBy/order-by.pipe';
 import { FilterPipe } from './Pipes/filter/filter.pipe';
+import { ModalComponent } from './modal/modal.component';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 
 @NgModule({
   declarations: [
@@ -31,8 +33,15 @@ import { FilterPipe } from './Pipes/filter/filter.pipe';
     DurationPipe,
     OrderByPipe,
     FilterPipe,
+    ModalComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FormsModule,
+    FontAwesomeModule,
+    MdbModalModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

@@ -5,8 +5,8 @@ import { DebugElement } from '@angular/core';
 import { first } from 'rxjs';
 
 import { CourseItemComponent } from './course-item.component';
-import { mockedCoursesList } from '../../../constants';
-import { DurationPipe } from '../../../Pipes/duration/duration.pipe';
+import { mockedCoursesList } from '../../../../constants';
+import { DurationPipe } from '../../../../Pipes/duration/duration.pipe';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -23,8 +23,6 @@ describe('CourseItemComponent', () => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
     component.course = mockedCoursesList[0];
-    courseItemDe = fixture.debugElement.query(By.css('div.card'));
-    courseItemEl = courseItemDe.nativeElement;
     fixture.detectChanges();
   });
 
@@ -44,6 +42,8 @@ describe('CourseItemComponent', () => {
   });
 
   it('should display course title', () => {
+    courseItemDe = fixture.debugElement.query(By.css('div.card'));
+    courseItemEl = courseItemDe.nativeElement;
     const actualTitle = courseItemEl?.querySelector('.card-title')?.textContent;
     expect(actualTitle).toEqual('JavaScript'.toUpperCase());
   });

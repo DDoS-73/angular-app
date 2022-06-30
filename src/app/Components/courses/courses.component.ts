@@ -2,9 +2,9 @@ import { Component, Input, OnChanges, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
-import { Course } from '../Course';
-import { FilterPipe } from '../Pipes/filter/filter.pipe';
-import { CourseService } from '../Services/course.service';
+import { Course } from '../../Models/course.model';
+import { FilterPipe } from '../../Pipes/filter/filter.pipe';
+import { CourseService } from '../../Services/course.service';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({

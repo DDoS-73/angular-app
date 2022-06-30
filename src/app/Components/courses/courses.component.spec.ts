@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CoursesComponent } from './courses.component';
-import { OrderByPipe } from '../Pipes/orderBy/order-by.pipe';
+import { OrderByPipe } from '../../Pipes/orderBy/order-by.pipe';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 describe('CoursesComponent', () => {

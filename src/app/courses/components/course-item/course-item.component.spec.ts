@@ -10,8 +10,6 @@ import { DebugElement } from '@angular/core';
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
   let fixture: ComponentFixture<CourseItemComponent>;
-  let courseItemDe: DebugElement;
-  let courseItemEl: HTMLElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -22,8 +20,6 @@ describe('CourseItemComponent', () => {
     fixture = TestBed.createComponent(CourseItemComponent);
     component = fixture.componentInstance;
     component.course = mockedCoursesList[0];
-    courseItemDe = fixture.debugElement.query(By.css('div.card'));
-    courseItemEl = courseItemDe.nativeElement;
     fixture.detectChanges();
   });
 
@@ -35,14 +31,20 @@ describe('CourseItemComponent', () => {
     const comp = new CourseItemComponent();
     comp.course = mockedCoursesList[0];
     const expectID = mockedCoursesList[0].id;
-
+    comp.deleteHandler = jasmine.createSpy().and.callFake(() => {
+      comp.deleteCourse.emit(comp.course.id);
+    });
     comp.deleteCourse
       .pipe(first())
-      .subscribe((deleteID: string) => expect(deleteID).toBe(expectID));
+      .subscribe((id: string) => expect(id).toBe(expectID));
     comp.deleteHandler();
   });
 
   it('should display course title', () => {
+    let courseItemDe: DebugElement = fixture.debugElement;
+    let courseItemEl: HTMLElement = courseItemDe.query(
+      By.css('div.card')
+    ).nativeElement;
     const actualTitle = courseItemEl?.querySelector('.card-title')?.textContent;
     expect(actualTitle).toEqual('JavaScript');
   });

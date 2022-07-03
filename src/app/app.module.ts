@@ -13,12 +13,12 @@ import { BreadcrumbsComponent } from './Components/breadcrumbs/breadcrumbs.compo
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { CourseItemComponent } from './Components/courses/components/course-item/course-item.component';
 import { ChangeBorderDirective } from './Directives/change-border.directive';
-import { DurationPipe } from './Pipes/duration/duration.pipe';
 import { OrderByPipe } from './Pipes/orderBy/order-by.pipe';
 import { FilterPipe } from './Pipes/filter/filter.pipe';
 import { ModalComponent } from './Components/modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { AuthModule } from './Modules/auth/auth.module';
+import { AddCourseModule } from './Modules/add-course/add-course.module';
 
 @NgModule({
   declarations: [
@@ -31,7 +31,6 @@ import { AuthModule } from './Modules/auth/auth.module';
     SearchBarComponent,
     CourseItemComponent,
     ChangeBorderDirective,
-    DurationPipe,
     OrderByPipe,
     FilterPipe,
     ModalComponent,
@@ -43,6 +42,7 @@ import { AuthModule } from './Modules/auth/auth.module';
     FontAwesomeModule,
     MdbModalModule,
     AuthModule,
+    AddCourseModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

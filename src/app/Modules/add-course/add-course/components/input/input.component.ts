@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-input',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./input.component.scss'],
 })
 export class InputComponent implements OnInit {
-  title = '';
+  @Input() title = '';
+  @Output() titleChange = new EventEmitter<string>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -14,5 +15,6 @@ export class InputComponent implements OnInit {
   handlerInput(e: Event) {
     const target = e.target as HTMLInputElement;
     this.title = target.value;
+    this.titleChange.emit(this.title);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-duration-input',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./duration-input.component.scss'],
 })
 export class DurationInputComponent implements OnInit {
-  duration: number = 0;
+  @Input() duration = 0;
+  @Output() durationChange = new EventEmitter<number>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -14,5 +15,6 @@ export class DurationInputComponent implements OnInit {
   handlerInput(e: Event) {
     const target = e.target as HTMLInputElement;
     this.duration = +target.value;
+    this.durationChange.emit(this.duration);
   }
 }

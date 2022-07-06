@@ -1,11 +1,11 @@
-<div class="wrapper">
+<div class="pt-5">
   <div class="card m-auto">
     <div class="card-body">
       <h2 class="card-title">New course</h2>
-      <app-input></app-input>
-      <app-text-area></app-text-area>
-      <app-date-input></app-date-input>
-      <app-duration-input></app-duration-input>
+      <app-input [(title)]="course.title"></app-input>
+      <app-text-area [(description)]="course.description"></app-text-area>
+      <app-date-input [(date)]="course.creationDate"></app-date-input>
+      <app-duration-input [(duration)]="course.duration"></app-duration-input>
       <app-authors-input></app-authors-input>
       <button (click)="saveHandler()" type="button" class="btn btn-success me-3">Save</button>
       <button (click)="cancelHandler()" type="button" class="btn btn-danger">Cancel</button>

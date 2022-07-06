@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-text-area',
@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./text-area.component.scss'],
 })
 export class TextAreaComponent implements OnInit {
-  description = '';
+  @Input() description = '';
+  @Output() descriptionChange = new EventEmitter<string>();
   constructor() {}
 
   ngOnInit(): void {}
@@ -14,5 +15,6 @@ export class TextAreaComponent implements OnInit {
   handlerInput(e: Event) {
     const target = e.target as HTMLInputElement;
     this.description = target.value;
+    this.descriptionChange.emit(this.description);
   }
 }

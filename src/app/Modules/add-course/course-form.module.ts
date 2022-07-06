@@ -8,7 +8,7 @@ import { DateInputComponent } from './add-course/components/date-input/date-inpu
 import { AuthorsInputComponent } from './add-course/components/authors-input/authors-input.component';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { DurationPipe } from '../../Pipes/duration/duration.pipe';
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from '../../app-routing.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +20,7 @@ import { RouterModule } from '@angular/router';
     AuthorsInputComponent,
     DurationPipe,
   ],
-  imports: [CommonModule, MdbFormsModule, RouterModule],
+  imports: [CommonModule, MdbFormsModule, AppRoutingModule],
   exports: [CourseFormComponent, DurationPipe],
 })
 export class CourseFormModule {}

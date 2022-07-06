@@ -5,23 +5,36 @@ import { MainPageComponent } from './Components/main-page/main-page.component';
 import { CourseFormComponent } from './Modules/add-course/add-course/course-form.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { AuthGuard } from './Guards/auth-guard.service';
+import { BreadcrumbsComponent } from './Components/breadcrumbs/breadcrumbs.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/courses', pathMatch: 'full' },
   {
-    path: 'courses',
-    component: MainPageComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/courses',
   },
   {
-    path: 'courses/new',
-    component: CourseFormComponent,
-    canActivate: [AuthGuard],
+    path: '',
+    component: BreadcrumbsComponent,
+    outlet: 'breadcrumbs',
   },
   {
-    path: 'courses/:id',
-    component: CourseFormComponent,
+    path: '',
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: 'courses',
+        component: MainPageComponent,
+      },
+      {
+        path: 'courses/new',
+        component: CourseFormComponent,
+      },
+      {
+        path: 'courses/:id',
+        component: CourseFormComponent,
+      },
+    ],
   },
   { path: 'login', component: LoginComponent },
   { path: '**', component: PageNotFoundComponent },

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../Models/user.model';
-import { LoginUser } from '../../Models/loginUser.model';
 
 @Injectable()
 export class AuthService {
@@ -13,17 +12,28 @@ export class AuthService {
     password: '',
   };
 
-  login(user: LoginUser) {
-    console.log(user);
-    this.user = { ...this.user, ...user };
+  login(user: User) {
+    this.user = { ...user, id: 'id', firstName: 'name', secondName: 'second' };
     localStorage.setItem('user', JSON.stringify(this.user));
   }
+
   logout() {
     console.log('Logout');
+    this.user = {
+      id: '',
+      firstName: '',
+      secondName: '',
+      email: '',
+      password: '',
+    };
     localStorage.clear();
   }
+
   isAuth(): boolean {
-    return Boolean(this.user.id);
+    return Boolean(localStorage.getItem('user'));
   }
-  getUserInfo() {}
+
+  getUserInfo(): User {
+    return this.user;
+  }
 }

@@ -18,7 +18,9 @@ import { FilterPipe } from './Pipes/filter/filter.pipe';
 import { ModalComponent } from './Components/modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { AuthModule } from './Modules/auth/auth.module';
-import { AddCourseModule } from './Modules/add-course/add-course.module';
+import { CourseFormModule } from './Modules/add-course/course-form.module';
+import { MainPageComponent } from './Components/main-page/main-page.component';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { AddCourseModule } from './Modules/add-course/add-course.module';
     OrderByPipe,
     FilterPipe,
     ModalComponent,
+    MainPageComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,7 @@ import { AddCourseModule } from './Modules/add-course/add-course.module';
     FontAwesomeModule,
     MdbModalModule,
     AuthModule,
-    AddCourseModule,
+    CourseFormModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

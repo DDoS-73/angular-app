@@ -14,13 +14,13 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: BreadcrumbsComponent,
-    outlet: 'breadcrumbs',
-  },
-  {
-    path: '',
     canActivate: [AuthGuard],
     children: [
+      {
+        path: '',
+        component: BreadcrumbsComponent,
+        outlet: 'breadcrumbs',
+      },
       {
         path: 'courses',
         component: MainPageComponent,

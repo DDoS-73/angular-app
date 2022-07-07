@@ -18,6 +18,8 @@ import { AuthModule } from './Modules/auth/auth.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { SharedModule } from './Modules/shared/shared.module';
+import { RouteReuseStrategy } from '@angular/router';
+import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,12 @@ import { SharedModule } from './Modules/shared/shared.module';
     AuthModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomRouteReuseStrategy,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

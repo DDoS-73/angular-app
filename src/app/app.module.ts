@@ -15,7 +15,6 @@ import { CourseItemComponent } from './Components/courses/components/course-item
 import { ModalComponent } from './Components/modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { AuthModule } from './Modules/auth/auth.module';
-import { CourseFormModule } from './Modules/add-course/course-form.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { SharedModule } from './Modules/shared/shared.module';
@@ -41,7 +40,6 @@ import { SharedModule } from './Modules/shared/shared.module';
     FontAwesomeModule,
     MdbModalModule,
     AuthModule,
-    CourseFormModule,
     SharedModule,
   ],
   providers: [],

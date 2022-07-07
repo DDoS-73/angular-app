@@ -7,8 +7,8 @@ import { DurationInputComponent } from './add-course/components/duration-input/d
 import { DateInputComponent } from './add-course/components/date-input/date-input.component';
 import { AuthorsInputComponent } from './add-course/components/authors-input/authors-input.component';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AppRoutingModule } from '../../app-routing.module';
 import { SharedModule } from '../shared/shared.module';
+import { CourseFormRoutingModule } from './course-form-routing.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,12 @@ import { SharedModule } from '../shared/shared.module';
     DateInputComponent,
     AuthorsInputComponent,
   ],
-  imports: [CommonModule, MdbFormsModule, AppRoutingModule, SharedModule],
+  imports: [
+    CommonModule,
+    MdbFormsModule,
+    CourseFormRoutingModule,
+    SharedModule,
+  ],
   exports: [CourseFormComponent],
 })
 export class CourseFormModule {}

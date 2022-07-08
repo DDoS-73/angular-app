@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { mockedCoursesList } from '../constants';
 import { Course } from '../Models/course.model';
+import { FilterPipe } from '../Pipes/filter/filter.pipe';
 
 @Injectable({
   providedIn: 'root',
@@ -9,8 +10,12 @@ import { Course } from '../Models/course.model';
 export class CourseService {
   private courses: Course[] = mockedCoursesList;
 
-  getList(): Course[] {
+  getCourses(): Course[] {
     return this.courses;
+  }
+
+  getFilteredCourses(title: string) {
+    return new FilterPipe().transform(this.courses, title);
   }
 
   createCourse(course: Course) {

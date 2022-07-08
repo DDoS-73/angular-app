@@ -10,22 +10,20 @@ import { mockedCoursesList } from '../../constants';
 import { CourseItemComponent } from './components/course-item/course-item.component';
 import { DurationPipe } from '../../Pipes/duration/duration.pipe';
 import { ChangeBorderDirective } from '../../Directives/change-border.directive';
-import { ModalComponent } from '../modal/modal.component';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
-  let courseServiceSpy: jasmine.SpyObj<CourseService>;
+  let valueServiceSpy: jasmine.SpyObj<CourseService>;
 
   beforeEach(async () => {
-    courseServiceSpy = jasmine.createSpyObj('CourseService', [
+    valueServiceSpy = jasmine.createSpyObj('CourseService', [
       'removeItem',
       'getList',
     ]);
     await TestBed.configureTestingModule({
       declarations: [
         CoursesComponent,
-        ModalComponent,
         OrderByPipe,
         CourseItemComponent,
         DurationPipe,
@@ -33,13 +31,13 @@ describe('CoursesComponent', () => {
       ],
       imports: [FontAwesomeModule, MdbModalModule],
       providers: [
-        { provide: CourseService, useValue: courseServiceSpy },
+        { provide: CourseService, useValue: valueServiceSpy },
         MdbModalService,
       ],
     }).compileComponents();
 
-    courseServiceSpy.getList.and.returnValue(mockedCoursesList);
-    courseServiceSpy.removeItem.and.callFake((id: string) => mockedCoursesList);
+    valueServiceSpy.getCourses.and.returnValue(mockedCoursesList);
+    valueServiceSpy.removeItem.and.callFake((id: string) => mockedCoursesList);
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -66,11 +64,15 @@ describe('CoursesComponent', () => {
     const btn = fixture.debugElement.queryAll(By.css('.btn-info'))[2];
     btn.triggerEventHandler('click');
     fixture.detectChanges();
-    const modalBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    modalBtn.click();
-    component.modalRef?.close(true);
-
-    console.log = jasmine.createSpy('log');
-    expect(console.log).toHaveBeenCalledWith('work');
+    const modalBtn = document.getElementById('deleteBtn');
+    modalBtn?.click();
+    console.log(document);
+    // component.deleteCourse('testID');
+    // const modalBtn = document.querySelector(
+    //   '.btn-success'
+    // ) as HTMLButtonElement;
+    // modalBtn.click();
+    // component.modalRef?.close(true);
+    expect(valueServiceSpy.removeItem).toHaveBeenCalled();
   });
 });

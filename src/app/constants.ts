@@ -1,4 +1,4 @@
-import { Course } from './Course';
+import { Course } from './Models/course.model';
 
 export const mockedCoursesList: Course[] = [
   {
@@ -21,7 +21,7 @@ specimen book. It has survived not only five centuries, but also the leap into e
     topRated: false,
   },
   {
-    id: 'b5630fdd-7bf7-4d39-b75a-2b5906fd0916',
+    id: '4dbc-b8a9-4d39-b75a-2b5906fd0916',
     title: 'React',
     description: `Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
  has been the industry's standard dummy text ever since the 1500s, when an unknown

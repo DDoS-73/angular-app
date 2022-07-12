@@ -1,0 +1,26 @@
+<div class="wrapper">
+  <div class="card position-absolute top top-50 start-50 translate-middle">
+    <div class="card-body">
+      <h3 class="card-title">Login</h3>
+      <div class="input-block mb-3">
+        <p class="d-flex justify-content-between mb-1"><b>Email:</b><span>*required</span></p>
+        <mdb-form-control>
+          <input (input)="handlerInput($event)" [value]="user.email" name="email"  mdbInput type="text" id="form1" class="form-control form-control-lg" />
+          <label mdbLabel class="form-label" for="form1">Enter email</label>
+        </mdb-form-control>
+      </div>
+      <div class="input-block mb-3">
+        <p class="d-flex justify-content-between mb-1"><b>Password:</b><span>*required</span></p>
+        <mdb-form-control>
+          <input (input)="handlerInput($event)" [value]="user.password" name="password" mdbInput type="text" id="form2" class="form-control form-control-lg" />
+          <label mdbLabel class="form-label" for="form2">Enter password</label>
+        </mdb-form-control>
+      </div>
+      <div class="btn-block d-flex justify-content-between align-items-center">
+        <a href="#">Forgot password?</a>
+        <button (click)="loginClick()" type="button" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+  </div>
+
+</div>

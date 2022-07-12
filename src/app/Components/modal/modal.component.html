@@ -1,0 +1,18 @@
+<div class="wrapper">
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Delete course?</h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="close(false)"
+    ></button>
+  </div>
+  <div class="modal-body"><p>Do you really want to delete this course?</p></div>
+  <div class="modal-footer">
+    <button type="button" class="btn" (click)="close(false)">
+      Cancel
+    </button>
+    <button id="deleteBtn" type="button" class="btn btn-success" (click)="close(true)">Yes, delete</button>
+  </div>
+</div>

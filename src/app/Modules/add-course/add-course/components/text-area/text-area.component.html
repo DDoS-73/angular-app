@@ -1,0 +1,7 @@
+<div class="input-block mb-3">
+  <p class="d-flex justify-content-between mb-1"><b>Description:</b><span>*required</span></p>
+  <mdb-form-control>
+    <textarea (input)="handlerInput($event)" [value]="description" type="text" mdbInput class="form-control form-control-lg" id="textArea" rows="4"></textarea>
+    <label mdbLabel class="form-label" for="textArea">Add description</label>
+  </mdb-form-control>
+</div>

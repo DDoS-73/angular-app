@@ -16,7 +16,13 @@ describe('AuthService', () => {
   });
 
   it('should save user info', () => {
-    const user = { email: 'email', password: 'passwords' };
+    const user: User = {
+      email: 'email',
+      password: 'passwords',
+      id: '',
+      firstName: '',
+      secondName: '',
+    };
     const expectedUser: User = {
       id: '',
       firstName: '',

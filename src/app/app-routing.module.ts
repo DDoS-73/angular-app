@@ -1,7 +1,49 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './Modules/auth/login/login.component';
+import { MainPageComponent } from './Components/main-page/main-page.component';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { AuthGuard } from './Guards/auth-guard.service';
+import { BreadcrumbsComponent } from './Components/breadcrumbs/breadcrumbs.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: '/courses',
+  },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: BreadcrumbsComponent,
+        outlet: 'breadcrumbs',
+      },
+      {
+        path: 'courses',
+        component: MainPageComponent,
+      },
+      {
+        path: 'courses/new',
+        loadChildren: () =>
+          import('./Modules/add-course/course-form.module').then(
+            (m) => m.CourseFormModule
+          ),
+      },
+      {
+        path: 'courses/:id',
+        loadChildren: () =>
+          import('./Modules/add-course/course-form.module').then(
+            (m) => m.CourseFormModule
+          ),
+      },
+    ],
+  },
+  { path: 'login', component: LoginComponent },
+  { path: '**', component: PageNotFoundComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

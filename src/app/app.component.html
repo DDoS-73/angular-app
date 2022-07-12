@@ -1,10 +1,8 @@
 <div class="wrapper">
   <app-header></app-header>
-  <app-breadcrumbs *ifAuthenticated></app-breadcrumbs>
   <main>
-    <app-search-bar (searchInput)="searchHandler($event)"></app-search-bar>
-    <app-courses [searchText]="searchText"></app-courses>
+    <router-outlet name="breadcrumbs"></router-outlet>
+    <router-outlet></router-outlet>
   </main>
-<!--  <app-login></app-login>-->
   <app-footer></app-footer>
 </div>

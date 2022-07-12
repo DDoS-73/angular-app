@@ -19,7 +19,7 @@
       <p class="card-text">{{course.description}}</p>
     </div>
     <div class="btn-block d-flex align-items-center w-25 justify-content-center">
-      <button (click)="editHandler()" class="btn btn-info me-3"><fa-icon class="me-2" [icon]="pencil"></fa-icon> Edit</button>
+      <button (click)="editHandler()" [routerLink]="['../courses', course.id]" class="btn btn-info me-3"><fa-icon class="me-2" [icon]="pencil"></fa-icon> Edit</button>
       <button (click)="deleteHandler()" class="btn btn-info"><fa-icon [icon]="trash"></fa-icon> Delete</button>
     </div>
   </div>

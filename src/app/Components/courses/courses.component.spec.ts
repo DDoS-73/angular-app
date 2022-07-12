@@ -3,43 +3,37 @@ import { By } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CoursesComponent } from './courses.component';
-import { OrderByPipe } from '../../Pipes/orderBy/order-by.pipe';
 import { CourseService } from '../../Services/course.service';
-import { MdbModalModule, MdbModalService } from 'mdb-angular-ui-kit/modal';
+import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { mockedCoursesList } from '../../constants';
 import { CourseItemComponent } from './components/course-item/course-item.component';
-import { DurationPipe } from '../../Pipes/duration/duration.pipe';
-import { ChangeBorderDirective } from '../../Directives/change-border.directive';
 import { ModalComponent } from '../modal/modal.component';
+import { AppRoutingModule } from '../../app-routing.module';
+import { SharedModule } from '../../Modules/shared/shared.module';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;
   let fixture: ComponentFixture<CoursesComponent>;
-  let courseServiceSpy: jasmine.SpyObj<CourseService>;
+  let valueServiceSpy: jasmine.SpyObj<CourseService>;
 
   beforeEach(async () => {
-    courseServiceSpy = jasmine.createSpyObj('CourseService', [
+    valueServiceSpy = jasmine.createSpyObj('CourseService', [
       'removeItem',
-      'getList',
+      'getCourses',
     ]);
     await TestBed.configureTestingModule({
-      declarations: [
-        CoursesComponent,
-        ModalComponent,
-        OrderByPipe,
-        CourseItemComponent,
-        DurationPipe,
-        ChangeBorderDirective,
+      declarations: [CoursesComponent, CourseItemComponent, ModalComponent],
+      imports: [
+        FontAwesomeModule,
+        MdbModalModule,
+        AppRoutingModule,
+        SharedModule,
       ],
-      imports: [FontAwesomeModule, MdbModalModule],
-      providers: [
-        { provide: CourseService, useValue: courseServiceSpy },
-        MdbModalService,
-      ],
+      providers: [{ provide: CourseService, useValue: valueServiceSpy }],
     }).compileComponents();
 
-    courseServiceSpy.getList.and.returnValue(mockedCoursesList);
-    courseServiceSpy.removeItem.and.callFake((id: string) => mockedCoursesList);
+    valueServiceSpy.getCourses.and.returnValue(mockedCoursesList);
+    valueServiceSpy.removeItem.and.callFake((id: string) => mockedCoursesList);
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -60,17 +54,5 @@ describe('CoursesComponent', () => {
     const loadMoreBtn = fixture.debugElement.query(By.css('#loadMoreBtn'));
     loadMoreBtn.triggerEventHandler('click');
     expect(console.log).toHaveBeenCalled();
-  });
-
-  it('should call console.log() after call deleteCourse()', () => {
-    const btn = fixture.debugElement.queryAll(By.css('.btn-info'))[2];
-    btn.triggerEventHandler('click');
-    fixture.detectChanges();
-    const modalBtn = document.getElementById('deleteBtn') as HTMLButtonElement;
-    modalBtn.click();
-    component.modalRef?.close(true);
-
-    console.log = jasmine.createSpy('log');
-    expect(console.log).toHaveBeenCalledWith('work');
   });
 });

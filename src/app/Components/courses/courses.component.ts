@@ -3,7 +3,6 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 import { Course } from '../../Models/course.model';
-import { FilterPipe } from '../../Pipes/filter/filter.pipe';
 import { CourseService } from '../../Services/course.service';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -15,7 +14,6 @@ import { ModalComponent } from '../modal/modal.component';
 export class CoursesComponent implements OnInit, OnChanges {
   modalRef: MdbModalRef<ModalComponent> | null = null;
   courses: Course[] = [];
-  filteredCourses: Course[] = [];
   plus = faPlus;
 
   constructor(
@@ -26,14 +24,11 @@ export class CoursesComponent implements OnInit, OnChanges {
   @Input() searchText!: string;
 
   ngOnInit(): void {
-    this.courses = this.filteredCourses = this.courseService.getList();
+    this.courses = this.courseService.getCourses();
   }
 
   ngOnChanges() {
-    this.filteredCourses = new FilterPipe().transform(
-      this.courses,
-      this.searchText
-    );
+    this.courses = this.courseService.getFilteredCourses(this.searchText);
   }
 
   trackByID(index: number, course: Course) {
@@ -46,7 +41,7 @@ export class CoursesComponent implements OnInit, OnChanges {
     });
     this.modalRef.onClose.subscribe((result: boolean) => {
       if (result) {
-        this.courses = this.filteredCourses = this.courseService.removeItem(id);
+        this.courses = this.courseService.removeItem(id);
       }
     });
   }

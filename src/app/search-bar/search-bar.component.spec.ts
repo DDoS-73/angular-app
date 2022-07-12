@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchBarComponent } from './search-bar.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 
 describe('SearchBarComponent', () => {
   let component: SearchBarComponent;
@@ -9,6 +12,7 @@ describe('SearchBarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SearchBarComponent],
+      imports: [FontAwesomeModule, FormsModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchBarComponent);
@@ -18,5 +22,15 @@ describe('SearchBarComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call console.log() after call onSearchClick()', () => {
+    console.log = jasmine.createSpy('log');
+    const inputEl = fixture.debugElement.query(By.css('input'));
+    inputEl.nativeElement.value = 'Test text';
+    inputEl.triggerEventHandler('input', { target: inputEl.nativeElement });
+    fixture.detectChanges();
+    component.onSearchClick();
+    expect(console.log).toHaveBeenCalledWith('Test text');
   });
 });

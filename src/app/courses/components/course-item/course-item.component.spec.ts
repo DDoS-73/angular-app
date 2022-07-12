@@ -1,11 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 import { first } from 'rxjs';
 
 import { CourseItemComponent } from './course-item.component';
 import { mockedCoursesList } from '../../../constants';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import { DurationPipe } from '../../../Pipes/duration/duration.pipe';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;
@@ -13,7 +14,7 @@ describe('CourseItemComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [CourseItemComponent],
+      declarations: [CourseItemComponent, DurationPipe],
       imports: [FontAwesomeModule],
     }).compileComponents();
 
@@ -46,7 +47,7 @@ describe('CourseItemComponent', () => {
       By.css('div.card')
     ).nativeElement;
     const actualTitle = courseItemEl?.querySelector('.card-title')?.textContent;
-    expect(actualTitle).toEqual('JavaScript');
+    expect(actualTitle).toEqual('JavaScript'.toUpperCase());
   });
 
   it('should call console.log() after click Edit button', () => {

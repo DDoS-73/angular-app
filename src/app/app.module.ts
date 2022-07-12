@@ -12,6 +12,10 @@ import { CoursesComponent } from './courses/courses.component';
 import { BreadcrumbsComponent } from './breadcrumbs/breadcrumbs.component';
 import { SearchBarComponent } from './search-bar/search-bar.component';
 import { CourseItemComponent } from './courses/components/course-item/course-item.component';
+import { ChangeBorderDirective } from './Directives/change-border.directive';
+import { DurationPipe } from './Pipes/duration/duration.pipe';
+import { OrderByPipe } from './Pipes/orderBy/order-by.pipe';
+import { FilterPipe } from './Pipes/filter/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -23,6 +27,10 @@ import { CourseItemComponent } from './courses/components/course-item/course-ite
     BreadcrumbsComponent,
     SearchBarComponent,
     CourseItemComponent,
+    ChangeBorderDirective,
+    DurationPipe,
+    OrderByPipe,
+    FilterPipe,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, FontAwesomeModule],
   providers: [],

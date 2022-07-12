@@ -1,9 +1,21 @@
 .card {
   color: black;
+
+  .info_item {
+    color: #414453;
+    display: inline-block;
+    margin-right: 25px;
+  }
+
+  .star {
+    font-size: 22px;
+    margin-left: 15px;
+    color: #fdc005;
+  }
+
 }
 
-.info_item {
-  color: #414453;
-  display: inline-block;
-  margin-right: 25px;
+.topRatedBg {
+  background-color: #96eb7f;
 }
+

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -11,7 +11,10 @@ export class SearchBarComponent {
   searchText = '';
   glass = faMagnifyingGlass;
 
+  @Output() searchInput = new EventEmitter();
+
   onSearchClick() {
     console.log(this.searchText);
+    this.searchInput.emit(this.searchText);
   }
 }

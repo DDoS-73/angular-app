@@ -1,6 +1,6 @@
 import {
   Directive,
-  DoCheck,
+  OnInit,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
@@ -9,9 +9,9 @@ import { AuthService } from './auth.service';
 @Directive({
   selector: '[ifAuthenticated]',
 })
-export class IsAuthDirective implements DoCheck {
+export class IsAuthDirective implements OnInit {
   private hasView = false;
-  private isAuth = false;
+  private isAuth$ = this.auth.isAuth();
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -19,14 +19,15 @@ export class IsAuthDirective implements DoCheck {
     private auth: AuthService
   ) {}
 
-  ngDoCheck(): void {
-    this.isAuth = this.auth.isAuth();
-    if (this.isAuth && !this.hasView) {
-      this.viewContainer.createEmbeddedView(this.templateRef);
-      this.hasView = true;
-    } else if (!this.isAuth && this.hasView) {
-      this.viewContainer.clear();
-      this.hasView = false;
-    }
+  ngOnInit(): void {
+    this.isAuth$.subscribe((auth) => {
+      if (auth && !this.hasView) {
+        this.viewContainer.createEmbeddedView(this.templateRef);
+        this.hasView = true;
+      } else if (!auth && this.hasView) {
+        this.viewContainer.clear();
+        this.hasView = false;
+      }
+    });
   }
 }

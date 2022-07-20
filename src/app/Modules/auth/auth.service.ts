@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { User } from '../../Models/user.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class AuthService {
-  constructor() {}
+  auth$ = new BehaviorSubject<boolean>(false);
   user: User = {
     id: '',
     firstName: '',
@@ -15,6 +16,7 @@ export class AuthService {
   login(user: User) {
     this.user = { ...user, id: 'id', firstName: 'name', secondName: 'second' };
     localStorage.setItem('user', JSON.stringify(this.user));
+    this.auth$.next(true);
   }
 
   logout() {
@@ -27,10 +29,12 @@ export class AuthService {
       password: '',
     };
     localStorage.clear();
+    this.auth$.next(false);
   }
 
-  isAuth(): boolean {
-    return Boolean(localStorage.getItem('user'));
+  isAuth(): BehaviorSubject<boolean> {
+    // return Boolean(localStorage.getItem('user'));
+    return this.auth$;
   }
 
   getUserInfo(): User {

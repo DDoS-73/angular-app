@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
@@ -11,7 +11,7 @@ import { ModalComponent } from '../modal/modal.component';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent implements OnInit, OnChanges {
+export class CoursesComponent implements OnInit {
   modalRef: MdbModalRef<ModalComponent> | null = null;
   courses: Course[] = [];
   plus = faPlus;
@@ -25,10 +25,6 @@ export class CoursesComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.courses = this.courseService.getCourses();
-  }
-
-  ngOnChanges() {
-    this.courses = this.courseService.getFilteredCourses(this.searchText);
   }
 
   trackByID(index: number, course: Course) {

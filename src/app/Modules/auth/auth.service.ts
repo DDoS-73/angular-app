@@ -33,7 +33,6 @@ export class AuthService {
   }
 
   isAuth(): BehaviorSubject<boolean> {
-    // return Boolean(localStorage.getItem('user'));
     return this.auth$;
   }
 

@@ -1,17 +1,20 @@
 import {
   Directive,
+  OnDestroy,
   OnInit,
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
 import { AuthService } from './auth.service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: '[ifAuthenticated]',
 })
-export class IsAuthDirective implements OnInit {
+export class IsAuthDirective implements OnInit, OnDestroy {
   private hasView = false;
   private isAuth$ = this.auth.isAuth();
+  private subscription?: Subscription;
 
   constructor(
     private templateRef: TemplateRef<any>,
@@ -20,7 +23,7 @@ export class IsAuthDirective implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isAuth$.subscribe((auth) => {
+    this.subscription = this.isAuth$.subscribe((auth) => {
       if (auth && !this.hasView) {
         this.viewContainer.createEmbeddedView(this.templateRef);
         this.hasView = true;
@@ -29,5 +32,9 @@ export class IsAuthDirective implements OnInit {
         this.hasView = false;
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe();
   }
 }

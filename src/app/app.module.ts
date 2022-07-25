@@ -9,7 +9,6 @@ import { HeaderComponent } from './Components/header/header.component';
 import { FooterComponent } from './Components/footer/footer.component';
 import { LogoComponent } from './Components/logo/logo.component';
 import { CoursesComponent } from './Components/courses/courses.component';
-import { BreadcrumbsComponent } from './Components/breadcrumbs/breadcrumbs.component';
 import { SearchBarComponent } from './Components/search-bar/search-bar.component';
 import { CourseItemComponent } from './Components/courses/components/course-item/course-item.component';
 import { ModalComponent } from './Components/modal/modal.component';
@@ -28,7 +27,6 @@ import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
     FooterComponent,
     LogoComponent,
     CoursesComponent,
-    BreadcrumbsComponent,
     SearchBarComponent,
     CourseItemComponent,
     ModalComponent,

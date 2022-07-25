@@ -14,7 +14,12 @@ export class SearchBarComponent {
   @Output() searchInput = new EventEmitter();
 
   onSearchClick() {
-    console.log(this.searchText);
     this.searchInput.emit(this.searchText);
+  }
+
+  emptySearchTermHandler() {
+    if (!this.searchText) {
+      this.searchInput.emit(this.searchText);
+    }
   }
 }

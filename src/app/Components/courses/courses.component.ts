@@ -27,8 +27,8 @@ export class CoursesComponent implements OnInit {
     this.courses = this.courseService.getCourses();
   }
 
-  trackByID(index: number, course: Course) {
-    return course.id;
+  trackByID(index: number, course: Course | undefined) {
+    return course?.id;
   }
 
   deleteCourse(id: string) {
@@ -40,9 +40,5 @@ export class CoursesComponent implements OnInit {
         this.courses = this.courseService.removeItem(id);
       }
     });
-  }
-
-  loadMoreHandler() {
-    console.log('Load more button is clicked');
   }
 }

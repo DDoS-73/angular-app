@@ -1,0 +1,80 @@
+<div class="h-100 d-flex justify-content-center align-items-center">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title text-center mb-0">Registration</h3>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="registrationFrom" (ngSubmit)="onSubmit()">
+        <mdb-form-control>
+          <input
+            mdbValidate
+            mdbInput
+            name="name"
+            type="text"
+            id="name"
+            class="form-control form-control-lg"
+            formControlName="name"
+            required
+          />
+          <label mdbLabel class="form-label" for="name">Enter name</label>
+          <mdb-error *ngIf="name?.invalid && (name?.dirty || name?.touched)">
+            Name is required
+          </mdb-error>
+        </mdb-form-control>
+        <mdb-form-control>
+          <input
+            mdbValidate
+            mdbInput
+            name="email"
+            type="email"
+            id="email"
+            class="form-control form-control-lg"
+            formControlName="email"
+            required
+          />
+          <label mdbLabel class="form-label" for="email">Enter email</label>
+          <mdb-error *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <span *ngIf="email?.errors?.['required']">Email is required</span>
+            <span *ngIf="email?.errors?.['email']">Invalid email address</span>
+          </mdb-error>
+        </mdb-form-control>
+        <mdb-form-control>
+          <input
+            mdbValidate
+            mdbInput
+            name="password"
+            type="password"
+            id="password"
+            class="form-control form-control-lg"
+            formControlName="password"
+            required
+          />
+          <label mdbLabel class="form-label" for="password"
+            >Enter password</label
+          >
+          <mdb-error
+            *ngIf="password?.invalid && (password?.dirty || password?.touched)"
+          >
+            <span *ngIf="password?.errors?.['required']"
+              >Password is required
+            </span>
+            <span *ngIf="password?.errors?.['minlength']"
+              >Password length should be equal
+              {{password?.errors?.['minlength']?.['requiredLength']}} at least
+            </span>
+          </mdb-error>
+        </mdb-form-control>
+        <button
+          [disabled]="registrationFrom.invalid"
+          type="submit"
+          class="d-block m-auto btn btn-primary"
+        >
+          Registration
+        </button>
+      </form>
+      <p class="text-center mt-2">
+        If you have an account you can <a routerLink="../login"><b>Login</b></a>
+      </p>
+    </div>
+  </div>
+</div>

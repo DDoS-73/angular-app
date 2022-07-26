@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { AppComponent } from './app.component';
@@ -16,6 +17,7 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { AuthModule } from './Modules/auth/auth.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { RegistrationModule } from './Modules/registration/registration.module';
 import { SharedModule } from './Modules/shared/shared.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
@@ -40,7 +42,9 @@ import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
     FontAwesomeModule,
     MdbModalModule,
     AuthModule,
+    RegistrationModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
   providers: [
     {

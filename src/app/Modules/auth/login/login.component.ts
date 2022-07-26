@@ -9,9 +9,7 @@ import { User } from '../../../Models/user.model';
 })
 export class LoginComponent {
   user: User = {
-    id: '',
-    firstName: '',
-    secondName: '',
+    name: '',
     email: '',
     password: '',
   };

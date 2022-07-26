@@ -12,10 +12,10 @@ export class HeaderComponent implements DoCheck {
   constructor(private auth: AuthService) {}
   faUser = faUser;
   logOff = faArrowRightFromBracket;
-  username = '';
+  username: string | undefined;
 
   ngDoCheck() {
-    this.username = this.auth.getUserInfo().firstName;
+    this.username = this.auth.getUserInfo().name;
   }
 
   logOut() {

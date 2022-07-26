@@ -20,12 +20,12 @@ describe('AuthService', () => {
       email: 'email',
       password: 'passwords',
       id: '',
-      firstName: '',
+      name: '',
       secondName: '',
     };
     const expectedUser: User = {
       id: '',
-      firstName: '',
+      name: '',
       secondName: '',
       email: 'email',
       password: 'passwords',

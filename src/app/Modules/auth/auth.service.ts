@@ -6,25 +6,20 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
   auth$ = new BehaviorSubject<boolean>(false);
   user: User = {
-    id: '',
-    firstName: '',
-    secondName: '',
+    name: '',
     email: '',
     password: '',
   };
 
   login(user: User) {
-    this.user = { ...user, id: 'id', firstName: 'name', secondName: 'second' };
+    this.user = { ...user, name: 'name' };
     localStorage.setItem('user', JSON.stringify(this.user));
     this.auth$.next(true);
   }
 
   logout() {
-    console.log('Logout');
     this.user = {
-      id: '',
-      firstName: '',
-      secondName: '',
+      name: '',
       email: '',
       password: '',
     };

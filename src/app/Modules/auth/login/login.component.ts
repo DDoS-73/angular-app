@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { User } from '../../../Models/user.model';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,20 +13,27 @@ import { User } from '../../../Models/user.model';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
-  user: User = {
-    name: '',
-    email: '',
-    password: '',
-  };
+  loginFrom: FormGroup;
 
-  constructor(private auth: AuthService) {}
-
-  handlerInput(e: Event) {
-    const target = e.target as HTMLInputElement;
-    this.user[target.name as keyof User] = target.value;
+  constructor(private router: Router) {
+    this.loginFrom = new FormGroup({
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(6),
+      ]),
+    });
   }
 
-  loginClick() {
-    this.auth.login(this.user);
+  get email(): AbstractControl | null {
+    return this.loginFrom.get('email');
+  }
+
+  get password(): AbstractControl | null {
+    return this.loginFrom.get('password');
+  }
+
+  onSubmit(): void {
+    this.router.navigate(['/', 'courses']);
   }
 }

@@ -4,7 +4,7 @@
       <h3 class="card-title text-center mb-0">Registration</h3>
     </div>
     <div class="card-body">
-      <form [formGroup]="registrationFrom" (ngSubmit)="onSubmit()">
+      <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
         <mdb-form-control>
           <input
             mdbValidate
@@ -65,7 +65,7 @@
           </mdb-error>
         </mdb-form-control>
         <button
-          [disabled]="registrationFrom.invalid"
+          [disabled]="registrationForm.invalid"
           type="submit"
           class="d-block m-auto btn btn-primary"
         >

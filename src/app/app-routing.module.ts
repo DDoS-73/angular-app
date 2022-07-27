@@ -4,7 +4,7 @@ import { LoginComponent } from './Modules/auth/login/login.component';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { AuthGuard } from './Guards/auth-guard.service';
-import { RegistrationComponent } from './Modules/registration/registration/registration.component';
+import { RegistrationComponent } from './Modules/auth/registration/registration.component';
 
 const routes: Routes = [
   {

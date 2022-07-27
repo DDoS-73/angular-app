@@ -17,7 +17,6 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { AuthModule } from './Modules/auth/auth.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
-import { RegistrationModule } from './Modules/registration/registration.module';
 import { SharedModule } from './Modules/shared/shared.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
@@ -42,7 +41,6 @@ import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
     FontAwesomeModule,
     MdbModalModule,
     AuthModule,
-    RegistrationModule,
     SharedModule,
     ReactiveFormsModule,
   ],

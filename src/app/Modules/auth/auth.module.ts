@@ -7,9 +7,10 @@ import { AuthService } from './auth.service';
 import { IsAuthDirective } from './is-auth.directive';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { AppRoutingModule } from '../../app-routing.module';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
-  declarations: [LoginComponent, IsAuthDirective],
+  declarations: [LoginComponent, IsAuthDirective, RegistrationComponent],
   imports: [
     CommonModule,
     MdbFormsModule,
@@ -18,6 +19,6 @@ import { AppRoutingModule } from '../../app-routing.module';
     ReactiveFormsModule,
   ],
   providers: [AuthService],
-  exports: [IsAuthDirective, LoginComponent],
+  exports: [IsAuthDirective, LoginComponent, RegistrationComponent],
 })
 export class AuthModule {}

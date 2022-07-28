@@ -1,0 +1,16 @@
+<div [class]="alertClasses">
+  <span class="fas fa-exclamation-circle"
+    ><fa-icon [icon]="faCircleCheck"></fa-icon>
+  </span>
+  <span *ngFor="let message of messages" class="msg">
+    <span *ngIf="alertClasses.success; else error">Success: </span>
+    {{ message }}
+  </span>
+  <div class="close-btn" (click)="closeAlert()">
+    <span class="fas fa-times"><fa-icon [icon]="faXmark"></fa-icon></span>
+  </div>
+</div>
+
+<ng-template #error>
+  <span>Error: </span>
+</ng-template>

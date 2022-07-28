@@ -5,8 +5,8 @@ import { DebugElement } from '@angular/core';
 import { first } from 'rxjs';
 
 import { CourseItemComponent } from './course-item.component';
-import { mockedCoursesList } from '../../../constants';
-import { DurationPipe } from '../../../Pipes/duration/duration.pipe';
+import { mockedCoursesList } from '../../../../constants';
+import { DurationPipe } from '../../../../Pipes/duration/duration.pipe';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;

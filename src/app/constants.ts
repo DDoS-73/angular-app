@@ -31,3 +31,5 @@ specimen book. It has survived not only five centuries, but also the leap into e
     topRated: false,
   },
 ];
+
+export const BASE_URL = 'http://localhost:4000';

@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { User } from '../../../Models/user.model';
+import { MessageService } from '../../message/message.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-registration',
@@ -9,12 +12,17 @@ import { Router } from '@angular/router';
 })
 export class RegistrationComponent {
   registrationForm = this.fb.group({
-    name: [null, Validators.required],
-    email: [null, [Validators.required, Validators.email]],
-    password: [null, [Validators.required, Validators.minLength(6)]],
+    name: ['', Validators.required],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
   });
 
-  constructor(private router: Router, private fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {}
 
   get email(): AbstractControl | null {
     return this.registrationForm.get('email');
@@ -29,6 +37,11 @@ export class RegistrationComponent {
   }
 
   onSubmit(): void {
-    this.router.navigate(['/', 'login']);
+    this.authService
+      .register(this.registrationForm.value as User)
+      .subscribe((res) => {
+        this.messageService.openSuccess(res.result);
+        this.router.navigate(['/', 'login']);
+      });
   }
 }

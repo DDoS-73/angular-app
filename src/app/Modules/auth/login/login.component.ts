@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from '../../message/message.service';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -16,7 +17,11 @@ import { AuthService } from '../auth.service';
 export class LoginComponent {
   loginFrom: FormGroup;
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private messageService: MessageService
+  ) {
     this.loginFrom = new FormGroup({
       email: new FormControl(null, [Validators.required, Validators.email]),
       password: new FormControl(null, [
@@ -36,6 +41,7 @@ export class LoginComponent {
 
   onSubmit(): void {
     this.authService.login(this.loginFrom.value).subscribe(() => {
+      this.messageService.openSuccess('Successful login');
       this.router.navigate(['/', 'courses']);
     });
   }

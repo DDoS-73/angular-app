@@ -1,6 +1,13 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, EMPTY, Observable } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  EMPTY,
+  Observable,
+  switchMap,
+  tap,
+} from 'rxjs';
 import { BASE_URL } from '../../constants';
 import { ServerResponse } from '../../Models/ServerResponse.model';
 import { User } from '../../Models/user.model';
@@ -8,19 +15,43 @@ import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class AuthService {
-  auth$ = new BehaviorSubject<boolean>(false);
+  isAuth$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
   user: User = {
     name: '',
     email: '',
     password: '',
+    role: '',
+    id: '',
   };
 
-  constructor(private http: HttpClient, private errorService: MessageService) {}
+  constructor(private http: HttpClient, private errorService: MessageService) {
+    if (localStorage.getItem('token')) {
+      this.http
+        .get<ServerResponse>(BASE_URL + '/users/me', {
+          headers: { Authorization: localStorage.getItem('token') || '' },
+        })
+        .subscribe((res) => {
+          this.user = res.result as User;
+        });
+    }
+  }
 
-  login(user: User) {
-    this.user = { ...user, name: 'name' };
-    localStorage.setItem('user', JSON.stringify(this.user));
-    this.auth$.next(true);
+  login(user: User): Observable<ServerResponse> {
+    return this.http.post<ServerResponse>(BASE_URL + '/login', user).pipe(
+      tap((res) => {
+        localStorage.setItem('token', res.result as string);
+      }),
+      switchMap(() => {
+        return this.http.get<ServerResponse>(BASE_URL + '/users/me', {
+          headers: { Authorization: localStorage.getItem('token') || '' },
+        });
+      }),
+      tap((res) => {
+        this.user = res.result as User;
+        this.isAuth$.next(true);
+      }),
+      catchError(this.handleError.bind(this))
+    );
   }
 
   logout() {
@@ -29,12 +60,12 @@ export class AuthService {
       email: '',
       password: '',
     };
-    localStorage.clear();
-    this.auth$.next(false);
+    localStorage.removeItem('token');
+    this.isAuth$.next(false);
   }
 
   isAuth(): BehaviorSubject<boolean> {
-    return this.auth$;
+    return this.isAuth$;
   }
 
   getUserInfo(): User {

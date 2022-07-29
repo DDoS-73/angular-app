@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, EMPTY, Observable } from 'rxjs';
 import { BASE_URL } from '../../constants';
+import { ServerResponse } from '../../Models/ServerResponse.model';
 import { User } from '../../Models/user.model';
 import { MessageService } from '../message/message.service';
 
@@ -40,26 +41,23 @@ export class AuthService {
     return this.user;
   }
 
-  register(user: User): Observable<{ successful: boolean; result: string }> {
+  register(user: User): Observable<ServerResponse> {
     return this.http
-      .post<{ successful: boolean; result: string }>(
-        BASE_URL + '/register',
-        user
-      )
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 0) {
-            console.error('An error occurred:', error.error);
-            this.errorService.openError(['Status code 0']);
-          } else {
-            console.error(
-              `Backend returned code ${error.status}, body was: `,
-              error.error
-            );
-            this.errorService.openError(error.error.errors);
-          }
-          return EMPTY;
-        })
+      .post<ServerResponse>(BASE_URL + '/register', user)
+      .pipe(catchError(this.handleError.bind(this)));
+  }
+
+  handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      console.error('An error occurred:', error.error);
+      this.errorService.openError(['Status code 0']);
+    } else {
+      console.error(
+        `Backend returned code ${error.status}, body was: `,
+        error.error
       );
+      this.errorService.openError(error.error.errors);
+    }
+    return EMPTY;
   }
 }

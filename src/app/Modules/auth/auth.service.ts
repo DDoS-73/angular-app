@@ -55,13 +55,24 @@ export class AuthService {
   }
 
   logout() {
-    this.user = {
-      name: '',
-      email: '',
-      password: '',
-    };
-    localStorage.removeItem('token');
-    this.isAuth$.next(false);
+    return this.http
+      .delete(BASE_URL + '/logout', {
+        headers: { Authorization: localStorage.getItem('token') || '' },
+      })
+      .pipe(
+        tap(() => {
+          this.user = {
+            name: '',
+            email: '',
+            password: '',
+            role: '',
+            id: '',
+          };
+          localStorage.removeItem('token');
+          this.isAuth$.next(false);
+        }),
+        catchError(this.handleError.bind(this))
+      );
   }
 
   isAuth(): BehaviorSubject<boolean> {

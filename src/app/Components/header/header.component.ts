@@ -2,6 +2,7 @@ import { Component, DoCheck } from '@angular/core';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../Modules/auth/auth.service';
+import { MessageService } from '../../Modules/message/message.service';
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,10 @@ import { AuthService } from '../../Modules/auth/auth.service';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements DoCheck {
-  constructor(private auth: AuthService) {}
+  constructor(
+    private auth: AuthService,
+    private messageService: MessageService
+  ) {}
   faUser = faUser;
   logOff = faArrowRightFromBracket;
   username: string | undefined;
@@ -19,6 +23,8 @@ export class HeaderComponent implements DoCheck {
   }
 
   logOut() {
-    this.auth.logout();
+    this.auth.logout().subscribe(() => {
+      this.messageService.openSuccess('Successful logout');
+    });
   }
 }

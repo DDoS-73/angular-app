@@ -29,6 +29,9 @@ export class LoginComponent {
         Validators.minLength(6),
       ]),
     });
+    if (this.authService.isAuth().getValue()) {
+      this.router.navigate(['/courses']);
+    }
   }
 
   get email(): AbstractControl | null {

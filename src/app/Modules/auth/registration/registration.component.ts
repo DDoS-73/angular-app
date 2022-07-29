@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from '../../../Models/user.model';
 import { MessageService } from '../../message/message.service';
 import { AuthService } from '../auth.service';
@@ -10,7 +11,8 @@ import { AuthService } from '../auth.service';
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnDestroy {
+  subscription?: Subscription;
   registrationForm = this.fb.group({
     name: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
@@ -37,11 +39,15 @@ export class RegistrationComponent {
   }
 
   onSubmit(): void {
-    this.authService
+    this.subscription = this.authService
       .register(this.registrationForm.value as User)
       .subscribe((res) => {
         this.messageService.openSuccess(res.result);
         this.router.navigate(['/', 'login']);
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
 }

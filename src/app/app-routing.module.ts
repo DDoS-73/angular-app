@@ -23,14 +23,14 @@ const routes: Routes = [
       {
         path: 'courses/new',
         loadChildren: () =>
-          import('./Modules/add-course/course-form.module').then(
+          import('./Modules/course-form/course-form.module').then(
             (m) => m.CourseFormModule
           ),
       },
       {
         path: 'courses/:id',
         loadChildren: () =>
-          import('./Modules/add-course/course-form.module').then(
+          import('./Modules/course-form/course-form.module').then(
             (m) => m.CourseFormModule
           ),
       },

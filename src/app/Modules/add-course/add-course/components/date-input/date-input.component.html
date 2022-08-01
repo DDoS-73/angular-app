@@ -1,7 +1,0 @@
-<div class="input-block mb-3">
-  <p class="d-flex justify-content-between mb-1 w-50"><b>Date:</b><span>*required</span></p>
-  <mdb-form-control class="w-50">
-    <input (input)="handlerInput($event)" [value]="(date | date:'d MMM, y') || 'N/A'" mdbInput type="text" id="date" class="form-control form-control-lg" />
-    <label mdbLabel class="form-label" for="date">Date</label>
-  </mdb-form-control>
-</div>

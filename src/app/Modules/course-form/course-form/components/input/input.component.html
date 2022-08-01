@@ -1,0 +1,16 @@
+<div class="input-block mb-3">
+  <p class="d-flex justify-content-between mb-1">
+    <b>Title:</b><span>*required</span>
+  </p>
+  <mdb-form-control>
+    <input
+      (input)="handlerInput($event)"
+      [value]="title"
+      mdbInput
+      type="text"
+      id="form1"
+      class="form-control form-control-lg"
+    />
+    <label mdbLabel class="form-label" for="form1">Title input</label>
+  </mdb-form-control>
+</div>

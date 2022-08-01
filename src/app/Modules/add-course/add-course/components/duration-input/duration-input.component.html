@@ -1,8 +1,0 @@
-<div class="input-block mb-3">
-  <p class="d-flex justify-content-between mb-1 w-50"><b>Duration:</b><span>*required</span></p>
-  <mdb-form-control class="d-inline-block w-50">
-    <input (input)="handlerInput($event)" [value]="duration + ''" mdbInput type="number" id="duration" class="form-control form-control-lg" />
-    <label mdbLabel class="form-label" for="duration">Duration</label>
-  </mdb-form-control>
-  <span class="ms-3">{{duration | duration}}</span>
-</div>

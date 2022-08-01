@@ -1,16 +1,14 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-text-area',
   templateUrl: './text-area.component.html',
   styleUrls: ['./text-area.component.scss'],
 })
-export class TextAreaComponent implements OnInit {
+export class TextAreaComponent {
   @Input() description = '';
   @Output() descriptionChange = new EventEmitter<string>();
   constructor() {}
-
-  ngOnInit(): void {}
 
   handlerInput(e: Event) {
     const target = e.target as HTMLInputElement;

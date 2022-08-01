@@ -7,8 +7,16 @@
       <app-date-input [(date)]="course.creationDate"></app-date-input>
       <app-duration-input [(duration)]="course.duration"></app-duration-input>
       <app-authors-input></app-authors-input>
-      <button (click)="saveHandler()" type="button" class="btn btn-success me-3">Save</button>
-      <button (click)="cancelHandler()" type="button" class="btn btn-danger">Cancel</button>
+      <button
+        (click)="saveHandler()"
+        type="button"
+        class="btn btn-success me-3"
+      >
+        Save
+      </button>
+      <button (click)="cancelHandler()" type="button" class="btn btn-danger">
+        Cancel
+      </button>
     </div>
   </div>
 </div>

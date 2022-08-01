@@ -26,14 +26,16 @@ export class AuthService {
 
   constructor(private http: HttpClient, private errorService: MessageService) {
     if (localStorage.getItem('token')) {
-      this.http
-        .get<ServerResponse>(BASE_URL + '/users/me', {
-          headers: { Authorization: localStorage.getItem('token') || '' },
-        })
-        .subscribe((res) => {
-          this.user = res.result as User;
-        });
+      this.fetchUserInfo().subscribe((res) => {
+        this.user = res.result as User;
+      });
     }
+  }
+
+  private fetchUserInfo() {
+    return this.http.get<ServerResponse>(BASE_URL + '/users/me', {
+      headers: { Authorization: localStorage.getItem('token') || '' },
+    });
   }
 
   login(user: User): Observable<ServerResponse> {
@@ -42,9 +44,7 @@ export class AuthService {
         localStorage.setItem('token', res.result as string);
       }),
       switchMap(() => {
-        return this.http.get<ServerResponse>(BASE_URL + '/users/me', {
-          headers: { Authorization: localStorage.getItem('token') || '' },
-        });
+        return this.fetchUserInfo();
       }),
       tap((res) => {
         this.user = res.result as User;

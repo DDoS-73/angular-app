@@ -21,6 +21,7 @@ import { MessageModule } from './Modules/message/message.module';
 import { SharedModule } from './Modules/shared/shared.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
+import { AuthorsPipe } from './Pipes/authors/authors.pipe';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
     ModalComponent,
     MainPageComponent,
     PageNotFoundComponent,
+    AuthorsPipe,
   ],
   imports: [
     BrowserModule,

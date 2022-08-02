@@ -1,10 +1,18 @@
 .card {
   color: black;
 
-  .info_item {
-    color: #414453;
-    display: inline-block;
-    margin-right: 25px;
+  .info {
+    max-width: 80%;
+
+    &_item {
+      color: #414453;
+      display: inline-block;
+      max-width: 65%;
+      min-width: 110px;
+    }
+    &_item:first-child {
+      min-width: 70px;
+    }
   }
 
   .star {
@@ -13,9 +21,10 @@
     color: #fdc005;
   }
 
-}
-
-.topRatedBg {
-  background-color: #96eb7f;
+  .slice {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 }
 

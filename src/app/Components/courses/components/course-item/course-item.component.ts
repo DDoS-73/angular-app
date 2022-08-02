@@ -3,11 +3,10 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
 } from '@angular/core';
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faPencil, faStar, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../../../../Models/course.model';
 
 @Component({
@@ -16,16 +15,13 @@ import { Course } from '../../../../Models/course.model';
   styleUrls: ['./course-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CourseItemComponent implements OnInit {
+export class CourseItemComponent {
   clock = faClock;
   calendar = faCalendar;
   pencil = faPencil;
   trash = faTrash;
-  star = faStar;
 
   @Input() course!: Course;
-
-  ngOnInit(): void {}
 
   @Output() deleteCourse = new EventEmitter();
 

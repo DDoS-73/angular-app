@@ -3,7 +3,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 
 import { Course } from '../../Models/course.model';
-import { CourseService } from '../../Services/course.service';
+import { CourseService } from '../../Services/courses/course.service';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({

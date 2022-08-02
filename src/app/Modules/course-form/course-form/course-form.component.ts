@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CourseService } from '../../../Services/course.service';
+import { CourseService } from '../../../Services/courses/course.service';
 
 @Component({
   selector: 'app-add-course',

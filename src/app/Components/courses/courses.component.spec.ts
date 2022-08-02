@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { CoursesComponent } from './courses.component';
-import { CourseService } from '../../Services/course.service';
+import { CourseService } from '../../Services/courses/course.service';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { mockedCoursesList } from '../../constants';
 import { CourseItemComponent } from './components/course-item/course-item.component';

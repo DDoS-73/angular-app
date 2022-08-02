@@ -1,8 +1,8 @@
 export interface Course {
-  id: string;
+  id?: string;
   title: string;
-  creationDate: Date;
-  duration: number;
   description: string;
+  duration: number;
+  creationDate: Date;
   topRated: boolean;
 }

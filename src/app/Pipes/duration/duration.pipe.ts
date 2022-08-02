@@ -4,7 +4,10 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'duration',
 })
 export class DurationPipe implements PipeTransform {
-  transform(value: number, ...args: unknown[]): string {
+  transform(value: number): string {
+    if (!value) {
+      return '0min';
+    }
     return value < 60
       ? `${value}min`
       : `${formatTime(Math.floor(value / 60))}h ${formatTime(value % 60)}min`;

@@ -78,6 +78,8 @@ export class CourseFormComponent implements OnInit {
   }
 
   private getSelectedAuthors(selected: boolean[]): string[] {
-    return selected.filter((el) => el).map((el, i) => this.allAuthors[i].id);
+    return selected
+      .flatMap((el, i) => (el ? this.allAuthors[i].id : []))
+      .filter((el) => !!el);
   }
 }

@@ -1,7 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { tap } from 'rxjs';
 
-import { mockedCoursesList } from '../../constants';
+import { BASE_URL, mockedCoursesList } from '../../constants';
 import { Course } from '../../Models/course.model';
+import { ServerResponse } from '../../Models/ServerResponse.model';
 
 @Injectable({
   providedIn: 'root',
@@ -9,12 +12,22 @@ import { Course } from '../../Models/course.model';
 export class CourseService {
   private courses: Course[] = mockedCoursesList;
 
+  constructor(private http: HttpClient) {}
+
   getCourses(): Course[] {
     return this.courses;
   }
 
   createCourse(course: Course) {
-    this.courses.push(course);
+    return this.http
+      .post<ServerResponse>(BASE_URL + '/courses/add', course, {
+        headers: { Authorization: localStorage.getItem('token') || '' },
+      })
+      .pipe(
+        tap((res) => {
+          this.courses.push(res.result as Course);
+        })
+      );
   }
 
   getItemByID(id: string) {

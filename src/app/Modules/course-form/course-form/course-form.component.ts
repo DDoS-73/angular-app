@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Course } from '../../../Models/course.model';
 import { AuthorsService } from '../../../Services/authors/authors.service';
 import { CourseService } from '../../../Services/courses/course.service';
 import { oneCheckboxShouldBeCheckedValidator } from '../../../Validators/oneOfCheckboxesShouldBeChecked';
@@ -59,7 +60,18 @@ export class CourseFormComponent implements OnInit {
   //   }
   // }
 
-  onSubmit() {}
+  onSubmit() {
+    const course: Course = {
+      title: this.courseForm.get('title')?.value as string,
+      description: this.courseForm.get('description')?.value as string,
+      duration: this.duration as number,
+      authors: this.getSelectedAuthors(this.authors.value),
+    };
+    this.courseService.createCourse(course).subscribe(() => {
+      this.messageService.openSuccess('The course has been created');
+      this.router.navigate(['../../courses']);
+    });
+  }
 
   cancelHandler() {
     this.router.navigate(['../../courses']);

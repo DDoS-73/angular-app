@@ -6,9 +6,12 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 export class ChangeBorderDirective implements OnInit {
   constructor(private el: ElementRef) {}
 
-  @Input('appChangeBorder') creationDate!: Date;
+  @Input('appChangeBorder') creationDate?: Date;
 
   ngOnInit() {
+    if (!this.creationDate) {
+      return;
+    }
     const now = Date.now();
     if (
       this.creationDate.getTime() < now &&

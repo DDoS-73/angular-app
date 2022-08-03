@@ -44,6 +44,24 @@
           <label mdbLabel class="form-label" for="duration">Duration</label>
         </mdb-form-control>
         <span class="ms-3">{{ duration | duration }}</span>
+        <h5 class="d-block">Choose authors:</h5>
+        <div formArrayName="authors" class="d-flex flex-wrap">
+          <div
+            *ngFor="let author of allAuthors; let i = index"
+            class="form-check me-3"
+          >
+            <input
+              mdbCheckbox
+              class="form-check-input"
+              type="checkbox"
+              id="author-{{ i }}"
+              [formControlName]="i"
+            />
+            <label class="form-check-label" for="author-{{ i }}">
+              {{ author.name }}
+            </label>
+          </div>
+        </div>
         <div class="mt-3">
           <button
             [disabled]="courseForm.invalid"

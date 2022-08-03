@@ -10,7 +10,10 @@
   </div>
   <ng-container
     *ngFor="
-      let course of courses | filter: searchText | orderBy: 'creationDate';
+      let course of courses$
+        | async
+        | filter: searchText
+        | orderBy: 'creationDate';
       trackBy: trackByID
     "
   >

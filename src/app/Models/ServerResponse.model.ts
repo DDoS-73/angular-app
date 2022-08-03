@@ -3,7 +3,7 @@ import { User } from './user.model';
 
 export interface ServerResponse {
   successful: boolean;
-  result: string | User | Course;
+  result: string | User | Course | Course[];
   user?: {
     email: string;
     name: string;

@@ -12,7 +12,7 @@
           </div>
           <div id="date" class="info_item me-4">
             <fa-icon [icon]="calendar"></fa-icon>
-            {{ course.creationDate | date: 'd MMM, y' }}
+            {{ creationDate | date }}
           </div>
           <div class="info_item slice">
             <span><b>Authors: </b>{{ course.authors | authors }}</span>

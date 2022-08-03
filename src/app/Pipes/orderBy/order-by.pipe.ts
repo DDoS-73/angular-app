@@ -6,9 +6,12 @@ import { Course } from '../../Models/course.model';
 })
 export class OrderByPipe implements PipeTransform {
   transform(
-    arr: Array<Course | undefined>,
+    arr: Array<Course | undefined> | null,
     field: string
   ): Array<Course | undefined> {
+    if (!arr) {
+      return [];
+    }
     const copyArr = [...arr];
     copyArr.sort((a: any, b: any) => {
       if (a[field] < b[field]) {

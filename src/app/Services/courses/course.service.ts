@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
-import { BASE_URL, mockedCoursesList } from '../../constants';
+import { BASE_URL } from '../../constants';
 import { Course } from '../../Models/course.model';
 import { ServerResponse } from '../../Models/ServerResponse.model';
 
@@ -10,12 +10,22 @@ import { ServerResponse } from '../../Models/ServerResponse.model';
   providedIn: 'root',
 })
 export class CourseService {
-  private courses: Course[] = mockedCoursesList;
+  private courses$ = new BehaviorSubject<Course[]>([]);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.fetchCourses();
+  }
 
-  getCourses(): Course[] {
-    return this.courses;
+  private fetchCourses() {
+    this.http
+      .get<ServerResponse>(BASE_URL + '/courses/all')
+      .subscribe((res) => {
+        this.courses$.next(res.result as Course[]);
+      });
+  }
+
+  getCourses(): BehaviorSubject<Course[]> {
+    return this.courses$;
   }
 
   createCourse(course: Course) {
@@ -25,26 +35,30 @@ export class CourseService {
       })
       .pipe(
         tap((res) => {
-          this.courses.push(res.result as Course);
+          this.courses$.next([
+            ...this.courses$.getValue(),
+            res.result as Course,
+          ]);
+          return res;
         })
       );
   }
 
   getItemByID(id: string) {
-    const course = this.courses.find((el) => el.id === id);
-    if (course) {
-      return course;
-    }
-    throw Error('There is no such course');
+    // const course = this.courses$.find((el) => el.id === id);
+    // if (course) {
+    //   return course;
+    // }
+    // throw Error('There is no such course');
   }
 
   updateItem(course: Course) {
-    this.courses = this.courses.filter((el) => el.id !== course.id);
-    this.courses.push(course);
+    // this.courses$ = this.courses$.filter((el) => el.id !== course.id);
+    // this.courses$.push(course);
   }
 
-  removeItem(id: string): Course[] {
-    this.courses = this.courses.filter((course) => course.id !== id);
-    return this.courses;
-  }
+  // removeItem(id: string): Course[] {
+  //   this.courses$ = this.courses$.filter((course) => course.id !== id);
+  //   return this.courses$;
+  // }
 }

@@ -25,6 +25,11 @@ export class CourseItemComponent {
 
   @Output() deleteCourse = new EventEmitter();
 
+  get creationDate() {
+    const [day, month, year] = (this.course.creationDate as string).split('/');
+    return new Date(+year, +month, +day);
+  }
+
   deleteHandler() {
     this.deleteCourse.emit(this.course.id);
   }

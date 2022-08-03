@@ -6,19 +6,20 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 export class ChangeBorderDirective implements OnInit {
   constructor(private el: ElementRef) {}
 
-  @Input('appChangeBorder') creationDate?: Date;
+  @Input('appChangeBorder') creationDate?: string;
 
   ngOnInit() {
     if (!this.creationDate) {
       return;
     }
     const now = Date.now();
+    const date = new Date(this.creationDate);
     if (
-      this.creationDate.getTime() < now &&
-      this.creationDate.getTime() >= now - 14 * 24 * 60 * 60 * 1000
+      date.getTime() < now &&
+      date.getTime() >= now - 14 * 24 * 60 * 60 * 1000
     ) {
       this.el.nativeElement.classList.value += ' border border-success';
-    } else if (this.creationDate.getTime() > now) {
+    } else if (date.getTime() > now) {
       this.el.nativeElement.classList.value += ' border border-info';
     }
   }

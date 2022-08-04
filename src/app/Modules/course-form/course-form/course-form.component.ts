@@ -20,15 +20,15 @@ export class CourseFormComponent implements OnInit {
     authors: this.fb.array([], [oneCheckboxShouldBeCheckedValidator]),
   });
 
-  allAuthors = this.authorsService.getAuthors();
+  authors$ = this.authorsService.getAuthors();
   editMode = false;
 
   constructor(
+    private authorsService: AuthorsService,
     private courseService: CourseService,
     private route: ActivatedRoute,
     private router: Router,
     private fb: FormBuilder,
-    private authorsService: AuthorsService,
     private messageService: MessageService
   ) {}
 
@@ -41,8 +41,10 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.allAuthors.forEach(() => {
-      this.authors.push(this.fb.control(false));
+    this.authors$.subscribe((res) => {
+      res.forEach(() => {
+        this.authors.push(this.fb.control(false));
+      });
     });
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -79,7 +81,7 @@ export class CourseFormComponent implements OnInit {
 
   private getSelectedAuthors(selected: boolean[]): string[] {
     return selected
-      .flatMap((el, i) => (el ? this.allAuthors[i].id : []))
+      .flatMap((el, i) => (el ? this.authors$.getValue()[i].id : []))
       .filter((el) => !!el);
   }
 }

@@ -1,21 +1,34 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { mockedAuthorsList } from '../../constants';
+import { BehaviorSubject } from 'rxjs';
+import { BASE_URL } from '../../constants';
 import { Author } from '../../Models/author.model';
+import { AuthorsResponse } from '../../Models/response';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthorsService {
-  private authors: Author[] = mockedAuthorsList;
+  private authors$ = new BehaviorSubject<Author[]>([]);
 
-  constructor() {}
+  constructor(private http: HttpClient) {
+    this.fetchAuthors();
+  }
 
-  getAuthors(): Author[] {
-    return this.authors;
+  private fetchAuthors() {
+    this.http
+      .get<AuthorsResponse>(BASE_URL + '/authors/all')
+      .subscribe((res) => {
+        this.authors$.next(res.result);
+      });
+  }
+
+  getAuthors(): BehaviorSubject<Author[]> {
+    return this.authors$;
   }
 
   getAuthorByID(id: string) {
-    const author = this.authors.find((el) => el.id === id);
+    const author = this.authors$.getValue().find((el) => el.id === id);
     if (author) {
       return author;
     }

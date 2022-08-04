@@ -47,7 +47,7 @@
         <h5 class="d-block">Choose authors:</h5>
         <div formArrayName="authors" class="d-flex flex-wrap">
           <div
-            *ngFor="let author of allAuthors; let i = index"
+            *ngFor="let author of authors$ | async; let i = index"
             class="form-check me-3"
           >
             <input

@@ -4,6 +4,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { BehaviorSubject } from 'rxjs';
 
 import { Course } from '../../Models/course.model';
+import { AuthorsService } from '../../Services/authors/authors.service';
 import { CourseService } from '../../Services/courses/course.service';
 import { ModalComponent } from '../modal/modal.component';
 
@@ -18,6 +19,7 @@ export class CoursesComponent {
   plus = faPlus;
 
   constructor(
+    private authorsService: AuthorsService,
     private courseService: CourseService,
     private modalService: MdbModalService
   ) {

@@ -15,6 +15,7 @@ import { SearchBarComponent } from './Components/search-bar/search-bar.component
 import { CourseItemComponent } from './Components/courses/components/course-item/course-item.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { AuthInterceptor } from './Http-Interceptors/AuthInterceptor';
 import { ErrorInterceptor } from './Http-Interceptors/ErrorInterceptor';
 import { AuthModule } from './Modules/auth/auth.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
@@ -53,6 +54,7 @@ import { AuthorsPipe } from './Pipes/authors/authors.pipe';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],

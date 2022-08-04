@@ -46,23 +46,19 @@ export class AuthService {
   }
 
   logout() {
-    return this.http
-      .delete(BASE_URL + '/logout', {
-        headers: { Authorization: localStorage.getItem('token') || '' },
+    return this.http.delete(BASE_URL + '/logout').pipe(
+      tap(() => {
+        this.user = {
+          name: '',
+          email: '',
+          password: '',
+          role: '',
+          id: '',
+        };
+        localStorage.removeItem('token');
+        this.isAuth$.next(false);
       })
-      .pipe(
-        tap(() => {
-          this.user = {
-            name: '',
-            email: '',
-            password: '',
-            role: '',
-            id: '',
-          };
-          localStorage.removeItem('token');
-          this.isAuth$.next(false);
-        })
-      );
+    );
   }
 
   isAuth(): BehaviorSubject<boolean> {

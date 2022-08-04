@@ -42,7 +42,7 @@ export class RegistrationComponent implements OnDestroy {
     this.subscription = this.authService
       .register(this.registrationForm.value as User)
       .subscribe((res) => {
-        this.messageService.openSuccess(res.result as string);
+        this.messageService.openSuccess(res.result);
         this.router.navigate(['/', 'login']);
       });
   }

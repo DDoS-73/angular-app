@@ -4,7 +4,7 @@ import { BehaviorSubject, tap } from 'rxjs';
 
 import { BASE_URL } from '../../constants';
 import { Course } from '../../Models/course.model';
-import { ServerResponse } from '../../Models/ServerResponse.model';
+import { CourseResponse, CoursesResponse } from '../../Models/response';
 
 @Injectable({
   providedIn: 'root',
@@ -18,9 +18,9 @@ export class CourseService {
 
   private fetchCourses() {
     this.http
-      .get<ServerResponse>(BASE_URL + '/courses/all')
+      .get<CoursesResponse>(BASE_URL + '/courses/all')
       .subscribe((res) => {
-        this.courses$.next(res.result as Course[]);
+        this.courses$.next(res.result);
       });
   }
 
@@ -30,15 +30,12 @@ export class CourseService {
 
   createCourse(course: Course) {
     return this.http
-      .post<ServerResponse>(BASE_URL + '/courses/add', course, {
+      .post<CourseResponse>(BASE_URL + '/courses/add', course, {
         headers: { Authorization: localStorage.getItem('token') || '' },
       })
       .pipe(
         tap((res) => {
-          this.courses$.next([
-            ...this.courses$.getValue(),
-            res.result as Course,
-          ]);
+          this.courses$.next([...this.courses$.getValue(), res.result]);
           return res;
         })
       );

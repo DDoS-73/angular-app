@@ -9,7 +9,7 @@ import {
   tap,
 } from 'rxjs';
 import { BASE_URL } from '../../constants';
-import { ServerResponse } from '../../Models/ServerResponse.model';
+import { SuccessfulResponse, UserResponse } from '../../Models/response';
 import { User } from '../../Models/user.model';
 import { MessageService } from '../message/message.service';
 
@@ -27,27 +27,27 @@ export class AuthService {
   constructor(private http: HttpClient, private errorService: MessageService) {
     if (localStorage.getItem('token')) {
       this.fetchUserInfo().subscribe((res) => {
-        this.user = res.result as User;
+        this.user = res.result;
       });
     }
   }
 
   private fetchUserInfo() {
-    return this.http.get<ServerResponse>(BASE_URL + '/users/me', {
+    return this.http.get<UserResponse>(BASE_URL + '/users/me', {
       headers: { Authorization: localStorage.getItem('token') || '' },
     });
   }
 
-  login(user: User): Observable<ServerResponse> {
-    return this.http.post<ServerResponse>(BASE_URL + '/login', user).pipe(
+  login(user: User): Observable<UserResponse> {
+    return this.http.post<SuccessfulResponse>(BASE_URL + '/login', user).pipe(
       tap((res) => {
-        localStorage.setItem('token', res.result as string);
+        localStorage.setItem('token', res.result);
       }),
       switchMap(() => {
         return this.fetchUserInfo();
       }),
       tap((res) => {
-        this.user = res.result as User;
+        this.user = res.result;
         this.isAuth$.next(true);
       }),
       catchError(this.handleError.bind(this))
@@ -83,9 +83,9 @@ export class AuthService {
     return this.user;
   }
 
-  register(user: User): Observable<ServerResponse> {
+  register(user: User): Observable<SuccessfulResponse> {
     return this.http
-      .post<ServerResponse>(BASE_URL + '/register', user)
+      .post<SuccessfulResponse>(BASE_URL + '/register', user)
       .pipe(catchError(this.handleError.bind(this)));
   }
 

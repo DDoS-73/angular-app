@@ -62,9 +62,9 @@ export class CourseFormComponent implements OnInit {
 
   onSubmit() {
     const course: Course = {
-      title: this.courseForm.get('title')?.value as string,
-      description: this.courseForm.get('description')?.value as string,
-      duration: this.duration as number,
+      title: this.courseForm.get('title')!.value,
+      description: this.courseForm.get('description')!.value,
+      duration: this.courseForm.get('duration')!.value,
       authors: this.getSelectedAuthors(this.authors.value),
     };
     this.courseService.createCourse(course).subscribe(() => {

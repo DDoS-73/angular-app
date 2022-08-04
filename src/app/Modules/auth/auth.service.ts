@@ -1,17 +1,9 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  catchError,
-  EMPTY,
-  Observable,
-  switchMap,
-  tap,
-} from 'rxjs';
+import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { BASE_URL } from '../../constants';
 import { SuccessfulResponse, UserResponse } from '../../Models/response';
 import { User } from '../../Models/user.model';
-import { MessageService } from '../message/message.service';
 
 @Injectable()
 export class AuthService {
@@ -24,7 +16,7 @@ export class AuthService {
     id: '',
   };
 
-  constructor(private http: HttpClient, private errorService: MessageService) {
+  constructor(private http: HttpClient) {
     if (localStorage.getItem('token')) {
       this.fetchUserInfo().subscribe((res) => {
         this.user = res.result;
@@ -49,8 +41,7 @@ export class AuthService {
       tap((res) => {
         this.user = res.result;
         this.isAuth$.next(true);
-      }),
-      catchError(this.handleError.bind(this))
+      })
     );
   }
 
@@ -70,8 +61,7 @@ export class AuthService {
           };
           localStorage.removeItem('token');
           this.isAuth$.next(false);
-        }),
-        catchError(this.handleError.bind(this))
+        })
       );
   }
 
@@ -84,22 +74,6 @@ export class AuthService {
   }
 
   register(user: User): Observable<SuccessfulResponse> {
-    return this.http
-      .post<SuccessfulResponse>(BASE_URL + '/register', user)
-      .pipe(catchError(this.handleError.bind(this)));
-  }
-
-  handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      console.error('An error occurred:', error.error);
-      this.errorService.openError(['Status code 0']);
-    } else {
-      console.error(
-        `Backend returned code ${error.status}, body was: `,
-        error.error
-      );
-      this.errorService.openError(error.error.errors);
-    }
-    return EMPTY;
+    return this.http.post<SuccessfulResponse>(BASE_URL + '/register', user);
   }
 }

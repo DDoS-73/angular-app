@@ -1,3 +1,4 @@
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +15,7 @@ import { SearchBarComponent } from './Components/search-bar/search-bar.component
 import { CourseItemComponent } from './Components/courses/components/course-item/course-item.component';
 import { ModalComponent } from './Components/modal/modal.component';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
+import { ErrorInterceptor } from './Http-Interceptors/ErrorInterceptor';
 import { AuthModule } from './Modules/auth/auth.module';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
@@ -47,12 +49,11 @@ import { AuthorsPipe } from './Pipes/authors/authors.pipe';
     SharedModule,
     ReactiveFormsModule,
     MessageModule,
+    HttpClientModule,
   ],
   providers: [
-    {
-      provide: RouteReuseStrategy,
-      useClass: CustomRouteReuseStrategy,
-    },
+    { provide: RouteReuseStrategy, useClass: CustomRouteReuseStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
   ],
   bootstrap: [AppComponent],
 })

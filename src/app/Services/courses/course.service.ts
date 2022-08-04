@@ -1,10 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { BASE_URL } from '../../constants';
 import { Course } from '../../Models/course.model';
-import { CourseResponse, CoursesResponse } from '../../Models/response';
+import {
+  CourseResponse,
+  CoursesResponse,
+  SuccessfulResponse,
+} from '../../Models/response';
 
 @Injectable({
   providedIn: 'root',
@@ -54,8 +58,18 @@ export class CourseService {
     // this.courses$.push(course);
   }
 
-  // removeItem(id: string): Course[] {
-  //   this.courses$ = this.courses$.filter((course) => course.id !== id);
-  //   return this.courses$;
-  // }
+  removeItem(id: string): Observable<SuccessfulResponse> {
+    return this.http
+      .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`, {
+        headers: { Authorization: localStorage.getItem('token') || '' },
+      })
+      .pipe(
+        tap((res) => {
+          this.courses$.next(
+            [...this.courses$.getValue()].filter((el) => el.id !== id)
+          );
+          return res;
+        })
+      );
+  }
 }

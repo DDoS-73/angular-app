@@ -4,6 +4,7 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { BehaviorSubject } from 'rxjs';
 
 import { Course } from '../../Models/course.model';
+import { MessageService } from '../../Modules/message/message.service';
 import { AuthorsService } from '../../Services/authors/authors.service';
 import { CourseService } from '../../Services/courses/course.service';
 import { ModalComponent } from '../modal/modal.component';
@@ -21,7 +22,8 @@ export class CoursesComponent {
   constructor(
     private authorsService: AuthorsService,
     private courseService: CourseService,
-    private modalService: MdbModalService
+    private modalService: MdbModalService,
+    private messageService: MessageService
   ) {
     this.courses$ = this.courseService.getCourses();
   }
@@ -33,13 +35,15 @@ export class CoursesComponent {
   }
 
   deleteCourse(id: string) {
-    // this.modalRef = this.modalService.open(ModalComponent, {
-    //   modalClass: 'modal-dialog-centered',
-    // });
-    // this.modalRef.onClose.subscribe((result: boolean) => {
-    //   if (result) {
-    //     this.courses$ = this.courseService.removeItem(id);
-    //   }
-    // });
+    this.modalRef = this.modalService.open(ModalComponent, {
+      modalClass: 'modal-dialog-centered',
+    });
+    this.modalRef.onClose.subscribe((result: boolean) => {
+      if (result) {
+        this.courseService.removeItem(id).subscribe(() => {
+          this.messageService.openSuccess('Courses was deleted');
+        });
+      }
+    });
   }
 }

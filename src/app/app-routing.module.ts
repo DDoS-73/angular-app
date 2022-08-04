@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AdminGuard } from './Guards/admin.guard';
 import { LoginComponent } from './Modules/auth/login/login.component';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
@@ -21,18 +22,24 @@ const routes: Routes = [
         component: MainPageComponent,
       },
       {
-        path: 'courses/new',
-        loadChildren: () =>
-          import('./Modules/course-form/course-form.module').then(
-            (m) => m.CourseFormModule
-          ),
-      },
-      {
-        path: 'courses/:id',
-        loadChildren: () =>
-          import('./Modules/course-form/course-form.module').then(
-            (m) => m.CourseFormModule
-          ),
+        path: '',
+        canActivate: [AdminGuard],
+        children: [
+          {
+            path: 'courses/new',
+            loadChildren: () =>
+              import('./Modules/course-form/course-form.module').then(
+                (m) => m.CourseFormModule
+              ),
+          },
+          {
+            path: 'courses/:id',
+            loadChildren: () =>
+              import('./Modules/course-form/course-form.module').then(
+                (m) => m.CourseFormModule
+              ),
+          },
+        ],
       },
     ],
   },

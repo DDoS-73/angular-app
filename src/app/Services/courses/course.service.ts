@@ -34,9 +34,7 @@ export class CourseService {
 
   createCourse(course: Course) {
     return this.http
-      .post<CourseResponse>(BASE_URL + '/courses/add', course, {
-        headers: { Authorization: localStorage.getItem('token') || '' },
-      })
+      .post<CourseResponse>(BASE_URL + '/courses/add', course)
       .pipe(
         tap((res) => {
           this.courses$.next([...this.courses$.getValue(), res.result]);
@@ -60,9 +58,7 @@ export class CourseService {
 
   removeItem(id: string): Observable<SuccessfulResponse> {
     return this.http
-      .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`, {
-        headers: { Authorization: localStorage.getItem('token') || '' },
-      })
+      .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`)
       .pipe(
         tap((res) => {
           this.courses$.next(

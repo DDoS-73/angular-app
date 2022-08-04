@@ -22,6 +22,7 @@ export class CourseItemComponent {
   trash = faTrash;
 
   @Input() course!: Course;
+  @Input() role?: string;
 
   @Output() deleteCourse = new EventEmitter();
 
@@ -32,9 +33,5 @@ export class CourseItemComponent {
 
   deleteHandler() {
     this.deleteCourse.emit(this.course.id);
-  }
-
-  editHandler() {
-    console.log('Edit button is clicked');
   }
 }

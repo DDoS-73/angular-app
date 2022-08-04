@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { BehaviorSubject } from 'rxjs';
 
 import { Course } from '../../Models/course.model';
+import { AuthService } from '../../Modules/auth/auth.service';
 import { MessageService } from '../../Modules/message/message.service';
 import { AuthorsService } from '../../Services/authors/authors.service';
 import { CourseService } from '../../Services/courses/course.service';
@@ -14,18 +15,25 @@ import { ModalComponent } from '../modal/modal.component';
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
 })
-export class CoursesComponent {
+export class CoursesComponent implements OnInit {
   modalRef: MdbModalRef<ModalComponent> | null = null;
-  courses$: BehaviorSubject<Course[]>;
+  courses$!: BehaviorSubject<Course[]>;
   plus = faPlus;
+  role: string | undefined;
 
   constructor(
     private authorsService: AuthorsService,
     private courseService: CourseService,
     private modalService: MdbModalService,
-    private messageService: MessageService
-  ) {
+    private messageService: MessageService,
+    private authService: AuthService
+  ) {}
+
+  ngOnInit() {
     this.courses$ = this.courseService.getCourses();
+    this.authService.getUserInfo().subscribe((user) => {
+      this.role = user.role;
+    });
   }
 
   @Input() searchText!: string;

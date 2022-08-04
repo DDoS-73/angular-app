@@ -25,13 +25,17 @@
       class="btn-block d-flex align-items-center w-25 justify-content-center"
     >
       <button
-        (click)="editHandler()"
+        *ngIf="role === 'admin'"
         [routerLink]="['../courses', course.id]"
         class="btn btn-info me-3"
       >
         <fa-icon class="me-2" [icon]="pencil"></fa-icon> Edit
       </button>
-      <button (click)="deleteHandler()" class="btn btn-info">
+      <button
+        *ngIf="role === 'admin'"
+        (click)="deleteHandler()"
+        class="btn btn-info"
+      >
         <fa-icon [icon]="trash"></fa-icon> Delete
       </button>
     </div>

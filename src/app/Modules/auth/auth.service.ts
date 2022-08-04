@@ -7,27 +7,26 @@ import { User } from '../../Models/user.model';
 
 @Injectable()
 export class AuthService {
-  isAuth$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
-  user: User = {
+  private user: User = {
     name: '',
     email: '',
     password: '',
     role: '',
     id: '',
   };
+  isAuth$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
+  user$ = new BehaviorSubject<User>(this.user);
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('token')) {
       this.fetchUserInfo().subscribe((res) => {
-        this.user = res.result;
+        this.user$.next(res.result);
       });
     }
   }
 
   private fetchUserInfo() {
-    return this.http.get<UserResponse>(BASE_URL + '/users/me', {
-      headers: { Authorization: localStorage.getItem('token') || '' },
-    });
+    return this.http.get<UserResponse>(BASE_URL + '/users/me');
   }
 
   login(user: User): Observable<UserResponse> {
@@ -39,8 +38,8 @@ export class AuthService {
         return this.fetchUserInfo();
       }),
       tap((res) => {
-        this.user = res.result;
         this.isAuth$.next(true);
+        this.user$.next(res.result);
       })
     );
   }
@@ -48,15 +47,9 @@ export class AuthService {
   logout() {
     return this.http.delete(BASE_URL + '/logout').pipe(
       tap(() => {
-        this.user = {
-          name: '',
-          email: '',
-          password: '',
-          role: '',
-          id: '',
-        };
         localStorage.removeItem('token');
         this.isAuth$.next(false);
+        this.user$.next(this.user);
       })
     );
   }
@@ -65,8 +58,8 @@ export class AuthService {
     return this.isAuth$;
   }
 
-  getUserInfo(): User {
-    return this.user;
+  getUserInfo(): BehaviorSubject<User> {
+    return this.user$;
   }
 
   register(user: User): Observable<SuccessfulResponse> {

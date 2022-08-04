@@ -1,7 +1,9 @@
-import { Component, DoCheck } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import {
+  faArrowRightFromBracket,
+  faUser,
+} from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../Modules/auth/auth.service';
 import { MessageService } from '../../Modules/message/message.service';
 
@@ -10,7 +12,7 @@ import { MessageService } from '../../Modules/message/message.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements DoCheck {
+export class HeaderComponent implements OnInit {
   constructor(
     private auth: AuthService,
     private messageService: MessageService,
@@ -20,8 +22,10 @@ export class HeaderComponent implements DoCheck {
   logOff = faArrowRightFromBracket;
   username: string | undefined;
 
-  ngDoCheck() {
-    this.username = this.auth.getUserInfo().name;
+  ngOnInit() {
+    this.auth.getUserInfo().subscribe((user) => {
+      this.username = user.name;
+    });
   }
 
   logOut() {

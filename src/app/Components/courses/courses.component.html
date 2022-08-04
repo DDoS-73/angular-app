@@ -1,6 +1,7 @@
 <div class="container">
   <div class="d-flex justify-content-end add-btn-block mb-3">
     <button
+      *ngIf="role === 'admin'"
       [routerLink]="['../courses/new']"
       routerLinkActive="active"
       class="btn btn-info"
@@ -21,6 +22,7 @@
       *ngIf="course; else noData"
       (deleteCourse)="deleteCourse($event)"
       [course]="course"
+      [role]="role"
     ></app-course-item>
   </ng-container>
 </div>

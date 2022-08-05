@@ -25,6 +25,8 @@ import { SharedModule } from './Modules/shared/shared.module';
 import { RouteReuseStrategy } from '@angular/router';
 import { CustomRouteReuseStrategy } from './custom-route-reuse-strategy';
 import { AuthorsPipe } from './Pipes/authors/authors.pipe';
+import { CourseInfoComponent } from './Components/course-info/course-info.component';
+import { TransformDatePipe } from './Pipes/transformDate/transform-date.pipe';
 
 @NgModule({
   declarations: [
@@ -39,6 +41,8 @@ import { AuthorsPipe } from './Pipes/authors/authors.pipe';
     MainPageComponent,
     PageNotFoundComponent,
     AuthorsPipe,
+    CourseInfoComponent,
+    TransformDatePipe,
   ],
   imports: [
     BrowserModule,

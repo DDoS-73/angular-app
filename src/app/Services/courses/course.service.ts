@@ -44,11 +44,7 @@ export class CourseService {
   }
 
   getItemByID(id: string) {
-    // const course = this.courses$.find((el) => el.id === id);
-    // if (course) {
-    //   return course;
-    // }
-    // throw Error('There is no such course');
+    return this.http.get<CourseResponse>(BASE_URL + `/courses/${id}`);
   }
 
   updateItem(course: Course) {

@@ -12,7 +12,7 @@
           </div>
           <div id="date" class="info_item me-4">
             <fa-icon [icon]="calendar"></fa-icon>
-            {{ creationDate | date }}
+            {{ course.creationDate | transformDate | date }}
           </div>
           <div class="info_item slice">
             <span><b>Authors: </b>{{ course.authors | authors }}</span>
@@ -22,7 +22,7 @@
       <p class="card-text">{{ course.description }}</p>
     </div>
     <div
-      class="btn-block d-flex align-items-center w-25 justify-content-center"
+      class="btn-block d-flex align-items-center w-25 justify-content-center flex-wrap"
     >
       <button
         *ngIf="role === 'admin'"
@@ -37,6 +37,12 @@
         class="btn btn-info"
       >
         <fa-icon [icon]="trash"></fa-icon> Delete
+      </button>
+      <button
+        [routerLink]="['../courses/info', course.id]"
+        class="btn btn-info"
+      >
+        <fa-icon [icon]="info"></fa-icon> Show info
       </button>
     </div>
   </div>

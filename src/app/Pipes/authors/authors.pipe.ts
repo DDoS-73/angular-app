@@ -7,7 +7,10 @@ import { AuthorsService } from '../../Services/authors/authors.service';
 export class AuthorsPipe implements PipeTransform {
   constructor(private authorsService: AuthorsService) {}
 
-  transform(id: string[]): string {
+  transform(id: string[] | undefined): string {
+    if (!id) {
+      return '';
+    }
     let authors = id.map((el) => this.authorsService.getAuthorByID(el));
     let result = authors.reduce((acc, el) => {
       return acc + el.name + ', ';

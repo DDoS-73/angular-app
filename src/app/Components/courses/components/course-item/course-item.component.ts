@@ -6,7 +6,11 @@ import {
   Output,
 } from '@angular/core';
 import { faCalendar, faClock } from '@fortawesome/free-regular-svg-icons';
-import { faPencil, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faPencil,
+  faTrash,
+  faMagnifyingGlass,
+} from '@fortawesome/free-solid-svg-icons';
 import { Course } from '../../../../Models/course.model';
 
 @Component({
@@ -20,16 +24,12 @@ export class CourseItemComponent {
   calendar = faCalendar;
   pencil = faPencil;
   trash = faTrash;
+  info = faMagnifyingGlass;
 
   @Input() course!: Course;
   @Input() role?: string;
 
   @Output() deleteCourse = new EventEmitter();
-
-  get creationDate() {
-    const [day, month, year] = (this.course.creationDate as string).split('/');
-    return new Date(+year, +month, +day);
-  }
 
   deleteHandler() {
     this.deleteCourse.emit(this.course.id);

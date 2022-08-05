@@ -1,0 +1,14 @@
+<div class="d-flex mt-3 flex-wrap">
+  <h5 class="w-100">You also can add author:</h5>
+  <mdb-form-control>
+    <input
+      mdbInput
+      type="text"
+      id="title"
+      class="form-control form-control-lg"
+      [(ngModel)]="name"
+    />
+    <label mdbLabel class="form-label" for="title">Enter name</label>
+  </mdb-form-control>
+  <button (click)="createAuthor()" class="btn btn-success ms-3">Add</button>
+</div>

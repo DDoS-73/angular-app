@@ -1,0 +1,20 @@
+<ng-container [formGroup]="form">
+  <h5 class="d-block">Choose authors:</h5>
+  <div formArrayName="authors" class="authors d-flex flex-wrap flex-column">
+    <div
+      *ngFor="let author of authors$ | async; let i = index"
+      class="form-check me-3"
+    >
+      <input
+        mdbCheckbox
+        class="form-check-input"
+        type="checkbox"
+        id="author-{{ i }}"
+        [formControlName]="i"
+      />
+      <label class="form-check-label" for="author-{{ i }}">
+        {{ author.name }}
+      </label>
+    </div>
+  </div>
+</ng-container>

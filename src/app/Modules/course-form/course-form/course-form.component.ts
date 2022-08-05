@@ -8,7 +8,7 @@ import { oneCheckboxShouldBeCheckedValidator } from '../../../Validators/oneOfCh
 import { MessageService } from '../../message/message.service';
 
 @Component({
-  selector: 'app-add-course',
+  selector: 'app-course-form',
   templateUrl: './course-form.component.html',
   styleUrls: ['./course-form.component.scss'],
 })
@@ -33,36 +33,16 @@ export class CourseFormComponent implements OnInit {
     private messageService: MessageService
   ) {}
 
-  get duration(): number {
-    return this.courseForm.get('duration')!.value;
-  }
-
   get authors() {
     return this.courseForm.get('authors') as FormArray;
   }
 
   ngOnInit(): void {
-    this.authors$.subscribe((res) => {
-      this.authors.controls = [];
-      for (const el of res) {
-        this.authors.push(this.fb.control(false));
-      }
-    });
-
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.editMode = true;
       // this.fillFields(id);
     }
-  }
-
-  addAuthor(e: Event) {
-    e.preventDefault();
-    this.authorsService
-      .addAuthor({ id: '', name: this.authorName })
-      .subscribe(() => {
-        this.messageService.openSuccess('Author created');
-      });
   }
 
   // fillFields(id: string) {
@@ -80,14 +60,11 @@ export class CourseFormComponent implements OnInit {
       duration: this.courseForm.get('duration')!.value,
       authors: this.getSelectedAuthors(this.authors.value),
     };
+
     this.courseService.createCourse(course).subscribe(() => {
       this.messageService.openSuccess('The course has been created');
       this.router.navigate(['/courses']);
     });
-  }
-
-  cancelHandler() {
-    this.router.navigate(['/courses']);
   }
 
   private getSelectedAuthors(selected: boolean[]): string[] {

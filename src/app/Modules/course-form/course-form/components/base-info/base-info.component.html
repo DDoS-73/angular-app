@@ -1,0 +1,41 @@
+<ng-container [formGroup]="form">
+  <mdb-form-control>
+    <input
+      mdbValidate
+      mdbInput
+      type="text"
+      id="title"
+      class="form-control form-control-lg"
+      formControlName="title"
+      required
+    />
+    <label mdbLabel class="form-label" for="title">Enter title</label>
+  </mdb-form-control>
+  <mdb-form-control>
+    <textarea
+      mdbValidate
+      mdbInput
+      id="description"
+      class="form-control form-control-lg"
+      formControlName="description"
+      required
+      rows="5"
+    ></textarea>
+    <label mdbLabel class="form-label" for="description"
+      >Enter description</label
+    >
+  </mdb-form-control>
+  <mdb-form-control class="d-inline-block w-50">
+    <input
+      mdbValidate
+      mdbInput
+      type="number"
+      id="duration"
+      class="form-control form-control-lg"
+      formControlName="duration"
+      required
+    />
+    <label mdbLabel class="form-label" for="duration">Duration</label>
+  </mdb-form-control>
+  <span class="ms-3">{{ duration | duration }}</span>
+</ng-container>

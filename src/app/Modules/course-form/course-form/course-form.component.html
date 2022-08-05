@@ -1,78 +1,12 @@
-<div class="pt-5">
+<div class="pt-3">
   <div class="card m-auto">
     <div class="card-header">
       <h2 class="card-title">New course</h2>
     </div>
     <div class="card-body">
       <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
-        <mdb-form-control>
-          <input
-            mdbValidate
-            mdbInput
-            type="text"
-            id="title"
-            class="form-control form-control-lg"
-            formControlName="title"
-            required
-          />
-          <label mdbLabel class="form-label" for="title">Enter title</label>
-        </mdb-form-control>
-        <mdb-form-control>
-          <textarea
-            mdbValidate
-            mdbInput
-            id="description"
-            class="form-control form-control-lg"
-            formControlName="description"
-            required
-            rows="5"
-          ></textarea>
-          <label mdbLabel class="form-label" for="description"
-            >Enter description</label
-          >
-        </mdb-form-control>
-        <mdb-form-control class="d-inline-block w-50">
-          <input
-            mdbValidate
-            mdbInput
-            type="number"
-            id="duration"
-            class="form-control form-control-lg"
-            formControlName="duration"
-            required
-          />
-          <label mdbLabel class="form-label" for="duration">Duration</label>
-        </mdb-form-control>
-        <span class="ms-3">{{ duration | duration }}</span>
-        <h5 class="d-block">Choose authors:</h5>
-        <div formArrayName="authors" class="d-flex flex-wrap">
-          <div
-            *ngFor="let author of authors$ | async; let i = index"
-            class="form-check me-3"
-          >
-            <input
-              mdbCheckbox
-              class="form-check-input"
-              type="checkbox"
-              id="author-{{ i }}"
-              [formControlName]="i"
-            />
-            <label class="form-check-label" for="author-{{ i }}">
-              {{ author.name }}
-            </label>
-          </div>
-        </div>
-        <div class="add-author d-flex mt-3 flex-wrap">
-          <h5 class="w-100">You also can add author:</h5>
-          <input
-            type="text"
-            [(ngModel)]="authorName"
-            [ngModelOptions]="{ standalone: true }"
-          />
-          <button (click)="addAuthor($event)" class="btn btn-primary ms-3">
-            Add
-          </button>
-        </div>
+        <course-base-info></course-base-info>
+        <course-add-author></course-add-author>
         <div class="mt-3">
           <button
             [disabled]="courseForm.invalid"
@@ -81,15 +15,12 @@
           >
             Save
           </button>
-          <button
-            (click)="cancelHandler()"
-            type="button"
-            class="btn btn-danger"
-          >
+          <button routerLink="/courses" type="button" class="btn btn-danger">
             Cancel
           </button>
         </div>
       </form>
+      <course-create-author></course-create-author>
     </div>
   </div>
 </div>

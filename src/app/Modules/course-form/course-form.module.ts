@@ -7,9 +7,17 @@ import { CourseFormComponent } from './course-form/course-form.component';
 import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { SharedModule } from '../shared/shared.module';
 import { CourseFormRoutingModule } from './course-form-routing.module';
+import { BaseInfoComponent } from './course-form/components/base-info/base-info.component';
+import { AddAuthorComponent } from './course-form/components/add-author/add-author.component';
+import { CreateAuthorComponent } from './course-form/components/create-author/create-author.component';
 
 @NgModule({
-  declarations: [CourseFormComponent],
+  declarations: [
+    CourseFormComponent,
+    BaseInfoComponent,
+    AddAuthorComponent,
+    CreateAuthorComponent,
+  ],
   imports: [
     CommonModule,
     MdbFormsModule,

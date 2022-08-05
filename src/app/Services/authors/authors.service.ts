@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 import { BASE_URL } from '../../constants';
 import { Author } from '../../Models/author.model';
 import { AuthorsResponse } from '../../Models/response';
+import { AuthorResponse } from '../../Models/response/AuthorResponse';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,13 @@ export class AuthorsService {
     throw Error('There is no such author');
   }
 
-  addAuthor() {}
+  addAuthor(author: Author) {
+    return this.http
+      .post<AuthorResponse>(BASE_URL + '/authors/add', author)
+      .pipe(
+        tap((res) => {
+          this.authors$.next([...this.authors$.getValue(), res.result]);
+        })
+      );
+  }
 }

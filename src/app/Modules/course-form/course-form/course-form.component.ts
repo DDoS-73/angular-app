@@ -22,6 +22,7 @@ export class CourseFormComponent implements OnInit {
 
   authors$ = this.authorsService.getAuthors();
   editMode = false;
+  authorName = '';
 
   constructor(
     private authorsService: AuthorsService,
@@ -33,7 +34,7 @@ export class CourseFormComponent implements OnInit {
   ) {}
 
   get duration(): number {
-    return <number>this.courseForm.get('duration')?.value;
+    return this.courseForm.get('duration')!.value;
   }
 
   get authors() {
@@ -42,9 +43,10 @@ export class CourseFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.authors$.subscribe((res) => {
-      res.forEach(() => {
+      this.authors.controls = [];
+      for (const el of res) {
         this.authors.push(this.fb.control(false));
-      });
+      }
     });
 
     const id = this.route.snapshot.paramMap.get('id');
@@ -52,6 +54,15 @@ export class CourseFormComponent implements OnInit {
       this.editMode = true;
       // this.fillFields(id);
     }
+  }
+
+  addAuthor(e: Event) {
+    e.preventDefault();
+    this.authorsService
+      .addAuthor({ id: '', name: this.authorName })
+      .subscribe(() => {
+        this.messageService.openSuccess('Author created');
+      });
   }
 
   // fillFields(id: string) {
@@ -71,17 +82,17 @@ export class CourseFormComponent implements OnInit {
     };
     this.courseService.createCourse(course).subscribe(() => {
       this.messageService.openSuccess('The course has been created');
-      this.router.navigate(['../../courses']);
+      this.router.navigate(['/courses']);
     });
   }
 
   cancelHandler() {
-    this.router.navigate(['../../courses']);
+    this.router.navigate(['/courses']);
   }
 
   private getSelectedAuthors(selected: boolean[]): string[] {
-    return selected
-      .flatMap((el, i) => (el ? this.authors$.getValue()[i].id : []))
-      .filter((el) => !!el);
+    return selected.flatMap((el, i) =>
+      el ? this.authors$.getValue()[i].id : []
+    );
   }
 }

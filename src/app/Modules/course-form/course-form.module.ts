@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
 import { CourseFormComponent } from './course-form/course-form.component';
@@ -18,6 +18,7 @@ import { CourseFormRoutingModule } from './course-form-routing.module';
     ReactiveFormsModule,
     MdbValidationModule,
     MdbCheckboxModule,
+    FormsModule,
   ],
   exports: [CourseFormComponent],
 })

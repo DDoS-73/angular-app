@@ -21,8 +21,7 @@ export class CourseFormComponent implements OnInit {
   });
 
   authors$ = this.authorsService.getAuthors();
-  editMode = false;
-  authorName = '';
+  id!: string | null;
 
   constructor(
     private authorsService: AuthorsService,
@@ -38,20 +37,23 @@ export class CourseFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.editMode = true;
-      // this.fillFields(id);
+    this.id = this.route.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.fillFields(this.id);
     }
   }
 
-  // fillFields(id: string) {
-  //   try {
-  //     this.course = this.courseService.getItemByID(id);
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // }
+  fillFields(id: string) {
+    this.courseService.getItemByID(id).subscribe(({ result: course }) => {
+      const data = {
+        title: course.title,
+        description: course.description,
+        duration: course.duration,
+        authors: this.convertCourseAuthors(course.authors),
+      };
+      this.courseForm.setValue(data);
+    });
+  }
 
   onSubmit() {
     const course: Course = {
@@ -61,15 +63,28 @@ export class CourseFormComponent implements OnInit {
       authors: this.getSelectedAuthors(this.authors.value),
     };
 
-    this.courseService.createCourse(course).subscribe(() => {
-      this.messageService.openSuccess('The course has been created');
-      this.router.navigate(['/courses']);
-    });
+    if (this.id) {
+      this.courseService
+        .updateItem({ ...course, id: this.id })
+        .subscribe(() => {
+          this.messageService.openSuccess('The course has been updated');
+          this.router.navigate(['/courses']);
+        });
+    } else {
+      this.courseService.createCourse(course).subscribe(() => {
+        this.messageService.openSuccess('The course has been created');
+        this.router.navigate(['/courses']);
+      });
+    }
   }
 
   private getSelectedAuthors(selected: boolean[]): string[] {
     return selected.flatMap((el, i) =>
       el ? this.authors$.getValue()[i].id : []
     );
+  }
+
+  private convertCourseAuthors(authors: string[]): boolean[] {
+    return this.authors$.getValue().map((el) => authors.includes(el.id));
   }
 }

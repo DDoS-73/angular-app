@@ -38,7 +38,6 @@ export class CourseService {
       .pipe(
         tap((res) => {
           this.courses$.next([...this.courses$.getValue(), res.result]);
-          return res;
         })
       );
   }
@@ -48,19 +47,26 @@ export class CourseService {
   }
 
   updateItem(course: Course) {
-    // this.courses$ = this.courses$.filter((el) => el.id !== course.id);
-    // this.courses$.push(course);
+    return this.http
+      .put<CourseResponse>(BASE_URL + `/courses/${course.id}`, course)
+      .pipe(
+        tap(({ result }) => {
+          const courses: Course[] = this.courses$
+            .getValue()
+            .filter((el) => el.id !== result.id);
+          this.courses$.next([...courses, result]);
+        })
+      );
   }
 
   removeItem(id: string): Observable<SuccessfulResponse> {
     return this.http
       .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`)
       .pipe(
-        tap((res) => {
+        tap(() => {
           this.courses$.next(
             [...this.courses$.getValue()].filter((el) => el.id !== id)
           );
-          return res;
         })
       );
   }

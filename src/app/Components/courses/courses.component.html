@@ -1,11 +1,6 @@
 <div class="container">
   <div class="d-flex justify-content-end add-btn-block mb-3">
-    <button
-      *ngIf="role === 'admin'"
-      [routerLink]="['../courses/new']"
-      routerLinkActive="active"
-      class="btn btn-info"
-    >
+    <button *ngIf="role === 'admin'" routerLink="new" class="btn btn-info">
       <fa-icon class="me-2" [icon]="plus"></fa-icon> Add course
     </button>
   </div>

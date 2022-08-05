@@ -26,7 +26,7 @@
     >
       <button
         *ngIf="role === 'admin'"
-        [routerLink]="['../courses', course.id]"
+        [routerLink]="['/courses', course.id]"
         class="btn btn-info me-3"
       >
         <fa-icon class="me-2" [icon]="pencil"></fa-icon> Edit
@@ -38,10 +38,7 @@
       >
         <fa-icon [icon]="trash"></fa-icon> Delete
       </button>
-      <button
-        [routerLink]="['../courses/info', course.id]"
-        class="btn btn-info"
-      >
+      <button [routerLink]="['/courses/info', course.id]" class="btn btn-info">
         <fa-icon [icon]="info"></fa-icon> Show info
       </button>
     </div>

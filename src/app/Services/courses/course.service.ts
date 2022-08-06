@@ -65,7 +65,7 @@ export class CourseService {
       .pipe(
         tap(() => {
           this.courses$.next(
-            [...this.courses$.getValue()].filter((el) => el.id !== id)
+            this.courses$.getValue().filter((el) => el.id !== id)
           );
         })
       );

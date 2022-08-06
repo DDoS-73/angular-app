@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { CourseInfoComponent } from './Components/course-info/course-info.component';
-import { AdminGuard } from './Guards/admin.guard';
-import { LoginComponent } from './Modules/auth/login/login.component';
 import { MainPageComponent } from './Components/main-page/main-page.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { AdminGuard } from './Guards/admin.guard';
 import { AuthGuard } from './Guards/auth-guard.service';
+import { LoginComponent } from './Modules/auth/login/login.component';
 import { RegistrationComponent } from './Modules/auth/registration/registration.component';
 
 const routes: Routes = [

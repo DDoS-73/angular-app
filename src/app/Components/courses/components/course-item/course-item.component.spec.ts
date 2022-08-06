@@ -1,12 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { first } from 'rxjs';
 
-import { CourseItemComponent } from './course-item.component';
 import { mockedCoursesList } from '../../../../constants';
 import { DurationPipe } from '../../../../Pipes/duration/duration.pipe';
+import { CourseItemComponent } from './course-item.component';
 
 describe('CourseItemComponent', () => {
   let component: CourseItemComponent;

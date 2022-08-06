@@ -7,6 +7,7 @@ import {
   UrlTree,
 } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { AuthService } from '../Modules/auth/auth.service';
 
 @Injectable({
@@ -16,7 +17,7 @@ export class AdminGuard implements CanActivate {
   role: string | undefined;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.user$.subscribe((user) => {
+    this.authService.getUserInfo().subscribe((user) => {
       this.role = user.role;
     });
   }

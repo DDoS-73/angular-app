@@ -1,13 +1,14 @@
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
 import { MdbValidationModule } from 'mdb-angular-ui-kit/validation';
-import { LoginComponent } from './login/login.component';
+
+import { AppRoutingModule } from '../../app-routing.module';
 import { AuthService } from './auth.service';
 import { IsAuthDirective } from './is-auth.directive';
-import { MdbFormsModule } from 'mdb-angular-ui-kit/forms';
-import { AppRoutingModule } from '../../app-routing.module';
+import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({

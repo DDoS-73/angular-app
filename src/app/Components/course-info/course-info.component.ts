@@ -1,6 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
 import { Course } from '../../Models/course.model';
 import { CourseService } from '../../Services/courses/course.service';
 

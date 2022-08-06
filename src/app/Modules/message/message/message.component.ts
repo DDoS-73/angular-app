@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { faCircleCheck, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { Subject, takeUntil } from 'rxjs';
+
 import { MessageService } from '../message.service';
 
 @Component({

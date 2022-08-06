@@ -1,15 +1,15 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
-import { CoursesComponent } from './courses.component';
-import { CourseService } from '../../Services/courses/course.service';
 import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
-import { mockedCoursesList } from '../../constants';
-import { CourseItemComponent } from './components/course-item/course-item.component';
-import { ModalComponent } from '../modal/modal.component';
+
 import { AppRoutingModule } from '../../app-routing.module';
+import { mockedCoursesList } from '../../constants';
 import { SharedModule } from '../../Modules/shared/shared.module';
+import { CourseService } from '../../Services/courses/course.service';
+import { ModalComponent } from '../modal/modal.component';
+import { CourseItemComponent } from './components/course-item/course-item.component';
+import { CoursesComponent } from './courses.component';
 
 describe('CoursesComponent', () => {
   let component: CoursesComponent;

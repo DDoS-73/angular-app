@@ -5,8 +5,9 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { AuthService } from './auth.service';
 import { Subscription } from 'rxjs';
+
+import { AuthService } from './auth.service';
 
 @Directive({
   selector: '[ifAuthenticated]',

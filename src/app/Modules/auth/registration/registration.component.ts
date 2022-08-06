@@ -2,6 +2,7 @@ import { Component, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
 import { User } from '../../../Models/user.model';
 import { MessageService } from '../../message/message.service';
 import { AuthService } from '../auth.service';

@@ -3,22 +3,22 @@ import { Subject } from 'rxjs';
 
 @Injectable()
 export class MessageService {
-  error = new Subject<string[]>();
-  success = new Subject<string>();
+  error$ = new Subject<string[]>();
+  success$ = new Subject<string>();
 
   openError(msg: string[]) {
-    this.error.next(msg);
+    this.error$.next(msg);
   }
 
   openSuccess(msg: string) {
-    this.success.next(msg);
+    this.success$.next(msg);
   }
 
   getError(): Subject<string[]> {
-    return this.error;
+    return this.error$;
   }
 
   getSuccess(): Subject<string> {
-    return this.success;
+    return this.success$;
   }
 }

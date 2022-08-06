@@ -1,8 +1,9 @@
-import { IsAuthDirective } from './is-auth.directive';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { AuthService } from './auth.service';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
 import { AuthModule } from './auth.module';
+import { AuthService } from './auth.service';
+import { IsAuthDirective } from './is-auth.directive';
 
 @Component({
   template: `<p *ifAuthenticated>Not show</p>`,

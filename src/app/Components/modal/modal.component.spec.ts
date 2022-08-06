@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ModalComponent } from './modal.component';
 import { By } from '@angular/platform-browser';
 import { MdbModalModule, MdbModalRef } from 'mdb-angular-ui-kit/modal';
+
+import { ModalComponent } from './modal.component';
 
 describe('ModalComponent', () => {
   let component: ModalComponent;

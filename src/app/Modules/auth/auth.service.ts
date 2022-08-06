@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
+
 import { BASE_URL } from '../../constants';
 import { SuccessfulResponse, UserResponse } from '../../Models/response';
 import { User } from '../../Models/user.model';
@@ -14,8 +15,10 @@ export class AuthService {
     role: '',
     id: '',
   };
-  isAuth$ = new BehaviorSubject<boolean>(!!localStorage.getItem('token'));
-  user$ = new BehaviorSubject<User>(this.user);
+  private isAuth$ = new BehaviorSubject<boolean>(
+    !!localStorage.getItem('token')
+  );
+  private user$ = new BehaviorSubject<User>(this.user);
 
   constructor(private http: HttpClient) {
     if (localStorage.getItem('token')) {

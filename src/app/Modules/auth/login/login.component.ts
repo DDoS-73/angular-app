@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { MessageService } from '../../message/message.service';
 import { AuthService } from '../auth.service';
 

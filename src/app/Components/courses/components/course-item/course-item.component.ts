@@ -11,6 +11,7 @@ import {
   faTrash,
   faMagnifyingGlass,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { Course } from '../../../../Models/course.model';
 
 @Component({

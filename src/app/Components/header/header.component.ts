@@ -4,6 +4,7 @@ import {
   faArrowRightFromBracket,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+
 import { AuthService } from '../../Modules/auth/auth.service';
 import { MessageService } from '../../Modules/message/message.service';
 

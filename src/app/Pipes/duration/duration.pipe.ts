@@ -10,10 +10,12 @@ export class DurationPipe implements PipeTransform {
     }
     return value < 60
       ? `${value}min`
-      : `${formatTime(Math.floor(value / 60))}h ${formatTime(value % 60)}min`;
+      : `${this.formatTime(Math.floor(value / 60))}h ${this.formatTime(
+          value % 60
+        )}min`;
+  }
+
+  private formatTime(num: number) {
+    return String(num).padStart(2, '0');
   }
 }
-
-const formatTime = (num: number) => {
-  return String(num).padStart(2, '0');
-};

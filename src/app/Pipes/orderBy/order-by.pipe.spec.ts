@@ -1,5 +1,5 @@
-import { OrderByPipe } from './order-by.pipe';
 import { mockedCoursesList } from '../../constants';
+import { OrderByPipe } from './order-by.pipe';
 
 describe('OrderByPipe', () => {
   const pipe = new OrderByPipe();

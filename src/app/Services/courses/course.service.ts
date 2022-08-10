@@ -16,6 +16,14 @@ import {
 export class CourseService {
   private courses$ = new BehaviorSubject<Course[]>([]);
 
+  get courses() {
+    return this.courses$.getValue();
+  }
+
+  set courses(val: Course[]) {
+    this.courses$.next(val);
+  }
+
   constructor(private http: HttpClient) {
     this.fetchCourses();
   }
@@ -24,7 +32,7 @@ export class CourseService {
     this.http
       .get<CoursesResponse>(BASE_URL + '/courses/all')
       .subscribe((res) => {
-        this.courses$.next(res.result);
+        this.courses = res.result;
       });
   }
 
@@ -37,7 +45,7 @@ export class CourseService {
       .post<CourseResponse>(BASE_URL + '/courses/add', course)
       .pipe(
         tap((res) => {
-          this.courses$.next([...this.courses$.getValue(), res.result]);
+          this.courses = [...this.courses, res.result];
         })
       );
   }
@@ -51,10 +59,9 @@ export class CourseService {
       .put<CourseResponse>(BASE_URL + `/courses/${course.id}`, course)
       .pipe(
         tap(({ result }) => {
-          const courses: Course[] = this.courses$
-            .getValue()
-            .filter((el) => el.id !== result.id);
-          this.courses$.next([...courses, result]);
+          this.courses = this.courses.map((course) =>
+            course.id === result.id ? result : course
+          );
         })
       );
   }
@@ -64,9 +71,7 @@ export class CourseService {
       .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`)
       .pipe(
         tap(() => {
-          this.courses$.next(
-            this.courses$.getValue().filter((el) => el.id !== id)
-          );
+          this.courses = this.courses.filter((el) => el.id !== id);
         })
       );
   }

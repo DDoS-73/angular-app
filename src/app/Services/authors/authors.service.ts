@@ -13,6 +13,14 @@ import { AuthorResponse } from '../../Models/response/AuthorResponse';
 export class AuthorsService {
   private authors$ = new BehaviorSubject<Author[]>([]);
 
+  get authors() {
+    return this.authors$.getValue();
+  }
+
+  set authors(val: Author[]) {
+    this.authors$.next(val);
+  }
+
   constructor(private http: HttpClient) {
     this.fetchAuthors();
   }
@@ -21,7 +29,7 @@ export class AuthorsService {
     this.http
       .get<AuthorsResponse>(BASE_URL + '/authors/all')
       .subscribe((res) => {
-        this.authors$.next(res.result);
+        this.authors = res.result;
       });
   }
 
@@ -30,7 +38,7 @@ export class AuthorsService {
   }
 
   getAuthorByID(id: string) {
-    const author = this.authors$.getValue().find((el) => el.id === id);
+    const author = this.authors.find((el) => el.id === id);
     if (author) {
       return author;
     }
@@ -42,7 +50,7 @@ export class AuthorsService {
       .post<AuthorResponse>(BASE_URL + '/authors/add', author)
       .pipe(
         tap((res) => {
-          this.authors$.next([...this.authors$.getValue(), res.result]);
+          this.authors = [...this.authors, res.result];
         })
       );
   }

@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
-@Injectable()
+import { MessageModule } from './message.module';
+
+@Injectable({
+  providedIn: MessageModule,
+})
 export class MessageService {
   error$ = new Subject<string[]>();
   success$ = new Subject<string>();

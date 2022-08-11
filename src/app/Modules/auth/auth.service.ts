@@ -5,8 +5,11 @@ import { BehaviorSubject, Observable, switchMap, tap } from 'rxjs';
 import { BASE_URL } from '../../constants';
 import { SuccessfulResponse, UserResponse } from '../../Models/response';
 import { User } from '../../Models/user.model';
+import { AuthModule } from './auth.module';
 
-@Injectable()
+@Injectable({
+  providedIn: AuthModule,
+})
 export class AuthService {
   private user: User = {
     name: '',

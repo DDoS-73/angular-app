@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import { AuthorsService } from '../../../../../Services/authors/authors.service';
-import { MessageService } from '../../../../message/message.service';
+import { Author } from '../../../../../Models/author.model';
+import { AuthorsPageActions } from '../../../../../Store/authors/authors.actions';
 
 @Component({
   selector: 'course-create-author',
@@ -10,15 +11,10 @@ import { MessageService } from '../../../../message/message.service';
 })
 export class CreateAuthorComponent {
   name: string = '';
-  constructor(
-    private authorsService: AuthorsService,
-    private messageService: MessageService
-  ) {}
+  constructor(private store: Store) {}
 
   createAuthor() {
-    this.authorsService.addAuthor({ id: '', name: this.name }).subscribe(() => {
-      this.messageService.openSuccess('Author created');
-      this.name = '';
-    });
+    const author: Author = { id: '', name: this.name };
+    this.store.dispatch(AuthorsPageActions.addAuthor({ author }));
   }
 }

@@ -5,8 +5,10 @@ import {
   FormGroup,
   FormGroupDirective,
 } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
 import { AuthorsService } from '../../../../../Services/authors/authors.service';
+import { selectAuthors } from '../../../../../Store/authors/authors.selectors';
 
 @Component({
   selector: 'course-add-author',
@@ -14,12 +16,13 @@ import { AuthorsService } from '../../../../../Services/authors/authors.service'
   styleUrls: ['./add-author.component.scss'],
 })
 export class AddAuthorComponent implements OnInit {
-  authors$ = this.authorsService.getAuthors();
+  authors$ = this.store.select(selectAuthors);
   form!: FormGroup;
   constructor(
     private authorsService: AuthorsService,
     private rootFormGroup: FormGroupDirective,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private store: Store
   ) {}
 
   get authors() {

@@ -16,7 +16,9 @@ describe('CourseService', () => {
   });
 
   it('should remove course', () => {
-    const courses = service.removeItem('de5aaa59-90f5-4dbc-b8a9-aaf205c551ba');
+    const courses = service.deleteCourse(
+      'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba'
+    );
     const expected = mockedCoursesList.filter(
       (el) => el.id !== 'de5aaa59-90f5-4dbc-b8a9-aaf205c551ba'
     );

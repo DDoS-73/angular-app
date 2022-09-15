@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import { Store } from '@ngrx/store';
 
+import { Author } from '../../../Models/author.model';
 import { Course } from '../../../Models/course.model';
 import { AuthorsService } from '../../../Services/authors/authors.service';
 import { CourseService } from '../../../Services/courses/course.service';
+import { selectAuthors } from '../../../Store/authors/authors.selectors';
+import { CoursePageActions } from '../../../Store/courses/courses.actions';
 import { oneCheckboxShouldBeCheckedValidator } from '../../../Validators/oneOfCheckboxesShouldBeChecked';
 import { MessageService } from '../../message/message.service';
 
@@ -21,19 +25,19 @@ export class CourseFormComponent implements OnInit {
     authors: this.fb.array([], [oneCheckboxShouldBeCheckedValidator]),
   });
 
-  authors$ = this.authorsService.getAuthors();
+  authors!: Author[];
   id!: string | null;
 
   constructor(
     private authorsService: AuthorsService,
     private courseService: CourseService,
     private route: ActivatedRoute,
-    private router: Router,
     private fb: FormBuilder,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private store: Store
   ) {}
 
-  get authors() {
+  get formAuthors() {
     return this.courseForm.get('authors') as FormArray;
   }
 
@@ -42,6 +46,9 @@ export class CourseFormComponent implements OnInit {
     if (this.id) {
       this.fillFields(this.id);
     }
+    this.store.select(selectAuthors).subscribe((authors) => {
+      this.authors = authors;
+    });
   }
 
   fillFields(id: string) {
@@ -50,7 +57,7 @@ export class CourseFormComponent implements OnInit {
         title: course.title,
         description: course.description,
         duration: course.duration,
-        authors: this.convertCourseAuthors(course.authors),
+        authors: this.convertCourseAuthorsToBoolean(course.authors),
       };
       this.courseForm.setValue(data);
     });
@@ -61,31 +68,23 @@ export class CourseFormComponent implements OnInit {
       title: this.courseForm.get('title')!.value,
       description: this.courseForm.get('description')!.value,
       duration: this.courseForm.get('duration')!.value,
-      authors: this.getSelectedAuthors(this.authors.value),
+      authors: this.getSelectedAuthors(this.formAuthors.value),
     };
 
     if (this.id) {
-      this.courseService
-        .updateItem({ ...course, id: this.id })
-        .subscribe(() => {
-          this.messageService.openSuccess('The course has been updated');
-          this.router.navigate(['/courses']);
-        });
+      this.store.dispatch(
+        CoursePageActions.updateCourse({ course: { ...course, id: this.id } })
+      );
     } else {
-      this.courseService.createCourse(course).subscribe(() => {
-        this.messageService.openSuccess('The course has been created');
-        this.router.navigate(['/courses']);
-      });
+      this.store.dispatch(CoursePageActions.createCourse({ course }));
     }
   }
 
   private getSelectedAuthors(selected: boolean[]): string[] {
-    return selected.flatMap((el, i) =>
-      el ? this.authors$.getValue()[i].id : []
-    );
+    return selected.flatMap((el, i) => (el ? this.authors[i].id : []));
   }
 
-  private convertCourseAuthors(authors: string[]): boolean[] {
-    return this.authors$.getValue().map((el) => authors.includes(el.id));
+  private convertCourseAuthorsToBoolean(authors: string[]): boolean[] {
+    return this.authors.map((el) => authors.includes(el.id));
   }
 }

@@ -33,7 +33,9 @@ describe('CoursesComponent', () => {
     }).compileComponents();
 
     valueServiceSpy.getCourses.and.returnValue(mockedCoursesList);
-    valueServiceSpy.removeItem.and.callFake((id: string) => mockedCoursesList);
+    valueServiceSpy.deleteCourse.and.callFake(
+      (id: string) => mockedCoursesList
+    );
     fixture = TestBed.createComponent(CoursesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { BASE_URL } from '../../constants';
 import { Course } from '../../Models/course.model';
@@ -14,40 +14,14 @@ import {
   providedIn: 'root',
 })
 export class CourseService {
-  private courses$ = new BehaviorSubject<Course[]>([]);
+  constructor(private http: HttpClient) {}
 
-  get courses() {
-    return this.courses$.getValue();
-  }
-
-  set courses(val: Course[]) {
-    this.courses$.next(val);
-  }
-
-  constructor(private http: HttpClient) {
-    this.fetchCourses();
-  }
-
-  private fetchCourses() {
-    this.http
-      .get<CoursesResponse>(BASE_URL + '/courses/all')
-      .subscribe((res) => {
-        this.courses = res.result;
-      });
-  }
-
-  getCourses(): BehaviorSubject<Course[]> {
-    return this.courses$;
+  getCourses(): Observable<CoursesResponse> {
+    return this.http.get<CoursesResponse>(BASE_URL + '/courses/all');
   }
 
   createCourse(course: Course) {
-    return this.http
-      .post<CourseResponse>(BASE_URL + '/courses/add', course)
-      .pipe(
-        tap((res) => {
-          this.courses = [...this.courses, res.result];
-        })
-      );
+    return this.http.post<CourseResponse>(BASE_URL + '/courses/add', course);
   }
 
   getItemByID(id: string) {
@@ -55,24 +29,13 @@ export class CourseService {
   }
 
   updateItem(course: Course) {
-    return this.http
-      .put<CourseResponse>(BASE_URL + `/courses/${course.id}`, course)
-      .pipe(
-        tap(({ result }) => {
-          this.courses = this.courses.map((course) =>
-            course.id === result.id ? result : course
-          );
-        })
-      );
+    return this.http.put<CourseResponse>(
+      BASE_URL + `/courses/${course.id}`,
+      course
+    );
   }
 
-  removeItem(id: string): Observable<SuccessfulResponse> {
-    return this.http
-      .delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`)
-      .pipe(
-        tap(() => {
-          this.courses = this.courses.filter((el) => el.id !== id);
-        })
-      );
+  deleteCourse(id: string): Observable<SuccessfulResponse> {
+    return this.http.delete<SuccessfulResponse>(BASE_URL + `/courses/${id}`);
   }
 }

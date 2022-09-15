@@ -15,7 +15,7 @@
             {{ course.creationDate | transformDate | date }}
           </div>
           <div class="info_item slice">
-            <span><b>Authors: </b>{{ course.authors | authors }}</span>
+            <span><b>Authors: </b>{{  authors$ | async | authors }}</span>
           </div>
         </div>
       </div>

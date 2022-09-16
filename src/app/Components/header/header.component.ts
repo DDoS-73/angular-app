@@ -4,9 +4,11 @@ import {
   faArrowRightFromBracket,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
 
-import { AuthService } from '../../Modules/auth/auth.service';
 import { MessageService } from '../../Modules/message/message.service';
+import { HeaderAction } from '../../Store/user/user.actions';
+import { selectName } from '../../Store/user/user.selectors';
 
 @Component({
   selector: 'app-header',
@@ -15,24 +17,22 @@ import { MessageService } from '../../Modules/message/message.service';
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private auth: AuthService,
     private messageService: MessageService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) {}
+
   faUser = faUser;
   logOff = faArrowRightFromBracket;
   username: string | undefined;
 
   ngOnInit() {
-    this.auth.getUserInfo().subscribe((user) => {
-      this.username = user.name;
+    this.store.select(selectName).subscribe((name) => {
+      this.username = name;
     });
   }
 
   logOut() {
-    this.auth.logout().subscribe(() => {
-      this.messageService.openSuccess('Successful logout');
-      this.router.navigate(['login']);
-    });
+    this.store.dispatch(HeaderAction.logout());
   }
 }

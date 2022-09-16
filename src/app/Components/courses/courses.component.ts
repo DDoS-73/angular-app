@@ -5,12 +5,12 @@ import { MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { Observable } from 'rxjs';
 
 import { Course } from '../../Models/course.model';
-import { AuthService } from '../../Modules/auth/auth.service';
 import { MessageService } from '../../Modules/message/message.service';
 import { AuthorsService } from '../../Services/authors/authors.service';
 import { CourseService } from '../../Services/courses/course.service';
 import { CoursePageActions } from '../../Store/courses/courses.actions';
 import { selectCourses } from '../../Store/courses/courses.selectors';
+import { selectRole } from '../../Store/user/user.selectors';
 import { ModalComponent } from '../modal/modal.component';
 
 @Component({
@@ -29,13 +29,12 @@ export class CoursesComponent implements OnInit {
     private courseService: CourseService,
     private modalService: MdbModalService,
     private messageService: MessageService,
-    private authService: AuthService,
     private store: Store
   ) {}
 
   ngOnInit() {
-    this.authService.getUserInfo().subscribe((user) => {
-      this.role = user.role;
+    this.store.select(selectRole).subscribe((role) => {
+      this.role = role;
     });
   }
 

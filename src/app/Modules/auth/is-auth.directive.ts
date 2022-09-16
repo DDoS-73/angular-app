@@ -5,22 +5,23 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from './auth.service';
+import { selectAuthStatus } from '../../Store/user/user.selectors';
 
 @Directive({
   selector: '[ifAuthenticated]',
 })
 export class IsAuthDirective implements OnInit, OnDestroy {
   private hasView = false;
-  private isAuth$ = this.auth.isAuth();
+  private isAuth$ = this.store.select(selectAuthStatus);
   private subscription?: Subscription;
 
   constructor(
     private templateRef: TemplateRef<any>,
     private viewContainer: ViewContainerRef,
-    private auth: AuthService
+    private store: Store
   ) {}
 
   ngOnInit(): void {

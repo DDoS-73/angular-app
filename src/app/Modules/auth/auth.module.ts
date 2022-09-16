@@ -11,7 +11,7 @@ import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
-  declarations: [LoginComponent, IsAuthDirective, RegistrationComponent],
+  declarations: [IsAuthDirective, LoginComponent, RegistrationComponent],
   imports: [
     CommonModule,
     MdbFormsModule,

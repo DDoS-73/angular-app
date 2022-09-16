@@ -6,15 +6,22 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { AuthService } from '../Modules/auth/auth.service';
+import { selectAuthStatus } from '../Store/user/user.selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) {}
+  isAuth: boolean = false;
+
+  constructor(private router: Router, private store: Store) {
+    this.store
+      .select(selectAuthStatus)
+      .subscribe((isAuth) => (this.isAuth = isAuth));
+  }
 
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -28,7 +35,7 @@ export class AuthGuard implements CanActivate {
   }
 
   checkLogin(): true | UrlTree {
-    if (this.authService.isAuth().getValue()) {
+    if (this.isAuth) {
       return true;
     }
 

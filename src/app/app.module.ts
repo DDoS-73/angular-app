@@ -31,6 +31,7 @@ import { TransformDatePipe } from './Pipes/transformDate/transform-date.pipe';
 import { rootReducer } from './Store';
 import { AuthorsEffects } from './Store/authors/authors.effects';
 import { CoursesEffects } from './Store/courses/courses.effects';
+import { UserEffects } from './Store/user/user.effects';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,7 @@ import { CoursesEffects } from './Store/courses/courses.effects';
     MessageModule,
     HttpClientModule,
     StoreModule.forRoot(rootReducer),
-    EffectsModule.forRoot([CoursesEffects, AuthorsEffects]),
+    EffectsModule.forRoot([CoursesEffects, AuthorsEffects, UserEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,

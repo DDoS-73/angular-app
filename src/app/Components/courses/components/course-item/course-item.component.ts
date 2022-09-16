@@ -5,11 +5,13 @@ import {
   faPencil,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
+import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Author } from '../../../../Models/author.model';
 import { Course } from '../../../../Models/course.model';
 import { AuthorsService } from '../../../../Services/authors/authors.service';
+import { selectRole } from '../../../../Store/user/user.selectors';
 
 @Component({
   selector: 'app-course-item',
@@ -25,10 +27,10 @@ export class CourseItemComponent implements OnInit {
 
   authors$!: Observable<Author[]>;
 
-  constructor(public authorsService: AuthorsService) {}
+  constructor(private authorsService: AuthorsService, private store: Store) {}
 
   @Input() course!: Course;
-  @Input() role?: string;
+  role?: string;
 
   @Output() deleteCourse = new EventEmitter();
 
@@ -37,7 +39,9 @@ export class CourseItemComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('init');
     this.authors$ = this.authorsService.getAuthorsByID(this.course.authors);
+    this.store.select(selectRole).subscribe((role) => {
+      this.role = role;
+    });
   }
 }
